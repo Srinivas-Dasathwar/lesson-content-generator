@@ -1,5 +1,5 @@
 """
-Main Entrypoint for the NxtWave GenAI Content Systems Assessment.
+Main Entrypoint for the Autonomous Self-Evaluating Lesson Content Generator.
 Usage:
   python -m src.main --help
   python -m src.main --cli

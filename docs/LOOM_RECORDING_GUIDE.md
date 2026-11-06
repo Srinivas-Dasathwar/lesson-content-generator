@@ -1,5 +1,5 @@
 # Loom Video Demonstration Script & Presenter Guide (15–20 Mins)
-## Take-Home Technical Assessment: Associate GenAI Engineer – Content Systems (NxtWave)
+## Technical Demonstration: Associate GenAI Engineer – Content Systems
 
 ---
 
@@ -31,9 +31,9 @@
 
 ### Part 1: Introduction & Learner Persona (00:00 – 02:00)
 > **What to Say:**  
-> *"Hello NxtWave hiring team! My name is [Your Name], and this is my presentation for the Associate GenAI Engineer – Content Systems take-home assessment.*  
+> *"Hello! My name is [Your Name], and this is my presentation for the Associate GenAI Engineer – Content Systems role.  
 >  
-> *Before jumping into code, I want to emphasize the core philosophy behind this project: **This is not just a clever prompt that generates text.** In production content systems at NxtWave, our goal is to build an autonomous agentic loop that generates learning materials, rigorously audits its own quality against uncompromising pedagogical rubrics, and decides whether content is truly good enough to ship before a human reviewer or student ever sees it.*  
+> *Before jumping into code, I want to emphasize the core philosophy behind this project: **This is not just a clever prompt that generates text.** In production content systems, our goal is to build an autonomous agentic loop that generates learning materials, rigorously audits its own quality against uncompromising pedagogical rubrics, and decides whether content is truly good enough to ship before a human reviewer or student ever sees it.*  
 >  
 > *Our target learner is very specific: A 12th-grade graduate from India who studied in a non-English-medium school. They have limited English vocabulary, zero prior computer science or AI background, but are deeply ambitious to break into tech. This means high-dimensional math or raw jargon like 'bi-encoder' will alienate them immediately. They need intuitive, relatable everyday analogies like exams, school notes, or library cards."*
 
@@ -128,4 +128,4 @@
 > 2. **Deterministic Rejection Recovery:** We cap retries at 2, guaranteeing the state machine terminates and never enters an infinite token-burning loop.  
 > 3. **Provider Agnostic Architecture:** The system runs out of the box with zero external setup using our high-fidelity Mock provider, while seamlessly switching to Google Gemini or OpenAI when an API key is provided.  
 >  
-> All code, tests, documentation, and logs are organized in the GitHub repository. Thank you for your time, and I look forward to the next stage of the conversation with NxtWave!"*
+> All code, tests, documentation, and logs are organized in the GitHub repository. Thank you for your time, and I look forward to your feedback!"*

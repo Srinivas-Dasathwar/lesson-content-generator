@@ -31,8 +31,7 @@ console = Console(safe_box=True)
 def print_banner():
     banner_text = """
 ================================================================================
-       NXTWAVE GENAI ENGINEER - CONTENT SYSTEMS TAKE-HOME ASSESSMENT
-             Autonomous Self-Evaluating Lesson Content Generator
+             AUTONOMOUS SELF-EVALUATING LESSON CONTENT GENERATOR
   Generate  ->  Evaluate (Hard Pass/Fail)  ->  Regenerate Loop  ->  Ship
 ================================================================================
 """
@@ -87,7 +86,7 @@ def display_rejection_history(rejections):
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Self-Evaluating Lesson Content Generator (NxtWave Assessment)")
+    parser = argparse.ArgumentParser(description="Autonomous Self-Evaluating Lesson Content Generator")
     parser.add_argument("--topic", type=str, default="RAG (Retrieval-Augmented Generation)", help="Topic for beginner lesson")
     parser.add_argument("--inject-flaw", type=str, choices=["none", "jargon_bomb", "hallucinated_facts", "missing_analogy"], default="none", help="Inject deliberate error to test evaluator catching & recovery")
     parser.add_argument("--provider", type=str, choices=["auto", "gemini", "openai", "groq", "mock"], default="auto", help="LLM Provider backend")

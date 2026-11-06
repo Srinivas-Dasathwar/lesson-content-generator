@@ -12,7 +12,7 @@ from src.providers.llm_provider import BaseLLMProvider
 
 logger = logging.getLogger(__name__)
 
-GENERATOR_SYSTEM_PROMPT = """You are an Elite GenAI Content Educator at NxtWave.
+GENERATOR_SYSTEM_PROMPT = """You are an Elite Technical Content Educator.
 Your mission is to write an engaging, crystal-clear, standalone beginner lesson for:
 TARGET LEARNER:
 - 12th-grade graduate from India.

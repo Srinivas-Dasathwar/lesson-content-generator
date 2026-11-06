@@ -12,7 +12,7 @@ from src.providers.llm_provider import BaseLLMProvider
 
 logger = logging.getLogger(__name__)
 
-PLANNER_SYSTEM_PROMPT = """You are a Master Curriculum Architect for NxtWave.
+PLANNER_SYSTEM_PROMPT = """You are a Master Curriculum Architect for technical learning systems.
 Your goal is to outline a high-impact, beginner-friendly lesson plan for a student who:
 - Just finished 12th grade in India.
 - Comes from a non-English-medium school.

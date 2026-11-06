@@ -1,5 +1,5 @@
 # Autonomous Self-Evaluating Lesson Content Generator
-### *NxtWave Take-Home Technical Assessment | Associate GenAI Engineer – Content Systems*
+### *Curriculum Systems Lab | Associate GenAI Engineer – Content Systems*
 
 [![Python Version](https://img.shields.io/badge/Python-3.10%20%7C%203.11%20%7C%203.12%20%7C%203.13-blue)](https://www.python.org/)
 [![Architecture](https://img.shields.io/badge/Architecture-Stateful%20Agentic%20Workflow-indigo)](#system-architecture)
@@ -10,7 +10,7 @@
 
 ## 📌 Executive Summary & Role Context
 
-In high-growth AI edtech organizations like **NxtWave**, the core challenge is not simply *"writing a prompt that generates educational text"*. Rather, it is architecting an **autonomous agentic system** that generates pedagogically sound learning content, rigorously audits its own quality against uncompromising rubrics, and decides whether that content clears the bar before a human ever sees it.
+In high-growth AI edtech organizations, the core challenge is not simply *"writing a prompt that generates educational text"*. Rather, it is architecting an **autonomous agentic system** that generates pedagogically sound learning content, rigorously audits its own quality against uncompromising rubrics, and decides whether that content clears the bar before a human ever sees it.
 
 This repository implements a **Self-Evaluating Lesson Content Generator** tailored for:
 > **Target Learner Persona:**  
@@ -104,8 +104,8 @@ To prove that the evaluator is strictly catching flaws and recovering rather tha
 ### 2. Installation
 Clone the repository and install required packages:
 ```bash
-git clone https://github.com/your-username/nxtwave-lesson-agent.git
-cd nxtwave-lesson-agent
+git clone https://github.com/your-username/lesson-content-agent.git
+cd lesson-content-agent
 
 # Optional: Create and activate virtual environment
 python -m venv venv
@@ -157,7 +157,7 @@ python -m unittest discover tests
 ## 📁 Repository Structure
 
 ```
-nxtwave-lesson-agent/
+lesson-content-agent/
 ├── data/
 │   ├── institutional_memory.json   # Persistent evolved guardrail rules across runs
 │   └── run_history.json            # Historical run logs and rejection metrics
@@ -215,4 +215,4 @@ nxtwave-lesson-agent/
 2. **Final Lesson Document:** [docs/FINAL_LESSON_RAG.md](docs/FINAL_LESSON_RAG.md) (formatted and ready to paste into Google Docs / Notion).
 3. **Loom Video Script:** [docs/LOOM_RECORDING_GUIDE.md](docs/LOOM_RECORDING_GUIDE.md) (minute-by-minute presentation plan covering the live run, deliberate error injection, and architectural walkthrough).
 
-*Designed and implemented with precision for NxtWave.*
+*Designed and implemented with precision for production content systems.*

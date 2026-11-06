@@ -22,7 +22,7 @@ Suddenly, the AI either gives up and says: *"I do not know, my knowledge stopped
 
 In the AI world, when a computer makes up fake facts, engineers call it a **Hallucination**.
 
-Why does this happen? And more importantly: **How do top companies like Google, Microsoft, and NxtWave stop AI from lying?**
+Why does this happen? And more importantly: **How do top companies like Google, Microsoft, and leading AI platforms stop AI from lying?**
 
 The secret answer is a powerful technique called **RAG (Retrieval-Augmented Generation)**.
 
@@ -162,4 +162,4 @@ A state engineering college wants to build a WhatsApp chatbot for newly admitted
 ### What's Next in Your AI Career Journey?
 In the next lesson, we will see how computers turn words into "Search Numbers" (called **Embeddings**) so a computer can search 10,000 pages of notes in less than 0.1 seconds!
 
-*Lesson authored by NxtWave Content Systems Agentic Workflow Engine.*
+*Lesson authored by Autonomous Content Systems Agentic Workflow Engine.*

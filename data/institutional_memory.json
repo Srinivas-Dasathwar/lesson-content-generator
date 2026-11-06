@@ -6,7 +6,7 @@
       "directive": "Keep English vocabulary accessible for 12th-grade Indian graduates from non-English medium backgrounds. Prefer 'simple, everyday words' over academic jargon.",
       "source_failure": "Initial pilots used words like 'parametric', 'dichotomy', and 'stochastic' which disengaged beginners.",
       "occurrence_count": 3,
-      "created_at": "2026-11-06T16:29:19.706715"
+      "created_at": "2026-11-06T18:08:26.070961"
     },
     {
       "rule_id": "RULE-ANALOGY-001",
@@ -14,7 +14,7 @@
       "directive": "Anchor RAG in the 'Open-Book Exam vs Closed-Book Exam' analogy. It instantly clicks with Indian students who understand exam pressure.",
       "source_failure": "Abstract software architecture diagrams failed comprehension tests without a physical analogy.",
       "occurrence_count": 5,
-      "created_at": "2026-11-06T16:29:19.706775"
+      "created_at": "2026-11-06T18:08:26.070988"
     },
     {
       "rule_id": "RULE-GROUNDING-001",
@@ -22,7 +22,7 @@
       "directive": "Explicitly state that RAG DOES NOT retrain the AI model or change its internal weights; it simply feeds reference notes into the prompt.",
       "source_failure": "Frequent beginner confusion assuming RAG is fine-tuning or training new models.",
       "occurrence_count": 4,
-      "created_at": "2026-11-06T16:29:19.706781"
+      "created_at": "2026-11-06T18:08:26.070998"
     },
     {
       "rule_id": "RULE-JARGON-001",
@@ -30,80 +30,8 @@
       "directive": "Never use terms like 'Embeddings' or 'Vector DB' without first demystifying them as 'Search Numbers' or 'Library Catalog Cards'.",
       "source_failure": "Unexplained AI buzzwords caused high drop-off in reader comprehension checks.",
       "occurrence_count": 6,
-      "created_at": "2026-11-06T16:29:19.706789"
-    },
-    {
-      "rule_id": "RULE-AUTO-005",
-      "category": "VOCABULARY",
-      "directive": "Guardrail against failure in 'AUDIENCE_VOCABULARY_AND_TONE': - [AUDIENCE_VOCABULARY_AND_TONE] Replace all research jargon with simple, everyday 12th-grade English. Use short sentences (under 20 words).\n- [RELATABLE_ANALOGY] Use an everyday Indian life analogy, such as an Open-Book Examination vs Closed-Book Exam or a school library.\n- [NO_UNEXPLAINED_JARGON] Do not mention HNSW or tensor dimensions. Focus strictly on Retrieval (Search), Augment (Attach), Generate (Answer).\n- [COHERENT_TEACHING_FLOW] Replace quiz with an intuitive scenario-based question (e.g. college WhatsApp admission bot or exam notes).",
-      "source_failure": "- [AUDIENCE_VOCABULARY_AND_TONE] Violates the audience constraint. Uses dense mathematical and research vocabulary like 'manifold degradatio",
-      "occurrence_count": 1,
-      "created_at": "2026-11-06T16:29:19.713491"
-    },
-    {
-      "rule_id": "RULE-AUTO-006",
-      "category": "GROUNDING",
-      "directive": "Guardrail against failure in 'RELATABLE_ANALOGY': - [AUDIENCE_VOCABULARY_AND_TONE] Replace all research jargon with simple, everyday 12th-grade English. Use short sentences (under 20 words).\n- [RELATABLE_ANALOGY] Use an everyday Indian life analogy, such as an Open-Book Examination vs Closed-Book Exam or a school library.\n- [NO_UNEXPLAINED_JARGON] Do not mention HNSW or tensor dimensions. Focus strictly on Retrieval (Search), Augment (Attach), Generate (Answer).\n- [COHERENT_TEACHING_FLOW] Replace quiz with an intuitive scenario-based question (e.g. college WhatsApp admission bot or exam notes).",
-      "source_failure": "- [AUDIENCE_VOCABULARY_AND_TONE] Violates the audience constraint. Uses dense mathematical and research vocabulary like 'manifold degradatio",
-      "occurrence_count": 1,
-      "created_at": "2026-11-06T16:29:19.713499"
-    },
-    {
-      "rule_id": "RULE-AUTO-007",
-      "category": "JARGON",
-      "directive": "Guardrail against failure in 'NO_UNEXPLAINED_JARGON': - [AUDIENCE_VOCABULARY_AND_TONE] Replace all research jargon with simple, everyday 12th-grade English. Use short sentences (under 20 words).\n- [RELATABLE_ANALOGY] Use an everyday Indian life analogy, such as an Open-Book Examination vs Closed-Book Exam or a school library.\n- [NO_UNEXPLAINED_JARGON] Do not mention HNSW or tensor dimensions. Focus strictly on Retrieval (Search), Augment (Attach), Generate (Answer).\n- [COHERENT_TEACHING_FLOW] Replace quiz with an intuitive scenario-based question (e.g. college WhatsApp admission bot or exam notes).",
-      "source_failure": "- [AUDIENCE_VOCABULARY_AND_TONE] Violates the audience constraint. Uses dense mathematical and research vocabulary like 'manifold degradatio",
-      "occurrence_count": 1,
-      "created_at": "2026-11-06T16:29:19.713510"
-    },
-    {
-      "rule_id": "RULE-AUTO-008",
-      "category": "GROUNDING",
-      "directive": "Guardrail against failure in 'COHERENT_TEACHING_FLOW': - [AUDIENCE_VOCABULARY_AND_TONE] Replace all research jargon with simple, everyday 12th-grade English. Use short sentences (under 20 words).\n- [RELATABLE_ANALOGY] Use an everyday Indian life analogy, such as an Open-Book Examination vs Closed-Book Exam or a school library.\n- [NO_UNEXPLAINED_JARGON] Do not mention HNSW or tensor dimensions. Focus strictly on Retrieval (Search), Augment (Attach), Generate (Answer).\n- [COHERENT_TEACHING_FLOW] Replace quiz with an intuitive scenario-based question (e.g. college WhatsApp admission bot or exam notes).",
-      "source_failure": "- [AUDIENCE_VOCABULARY_AND_TONE] Violates the audience constraint. Uses dense mathematical and research vocabulary like 'manifold degradatio",
-      "occurrence_count": 1,
-      "created_at": "2026-11-06T16:29:19.713516"
-    },
-    {
-      "rule_id": "RULE-AUTO-009",
-      "category": "GROUNDING",
-      "directive": "Guardrail against failure in 'ACCURACY_AND_GROUNDING': - [ACCURACY_AND_GROUNDING] Correct the factual error: Clarify that RAG never touches the AI's internal model weights. It only looks up reference text and feeds it as a prompt.\n- [RELATABLE_ANALOGY] Use an Open-Book exam analogy: you don't grow a new brain, you simply look at your notebook.\n- [NO_UNEXPLAINED_JARGON] Remove backpropagation and gradient descent; explain that the AI model remains frozen.\n- [CORE_PILLARS_COVERAGE] Explain the 3 real pillars: Retrieve (search), Augment (attach), Generate (synthesize).\n- [COHERENT_TEACHING_FLOW] Update quiz to test understanding of the search-and-attach mechanism.",
-      "source_failure": "- [ACCURACY_AND_GROUNDING] Fatal technical error: RAG explicitly does NOT retrain or fine-tune neural model weights at query time. It inject",
-      "occurrence_count": 1,
-      "created_at": "2026-11-06T16:29:27.519678"
-    },
-    {
-      "rule_id": "RULE-AUTO-010",
-      "category": "GROUNDING",
-      "directive": "Guardrail against failure in 'RELATABLE_ANALOGY': - [ACCURACY_AND_GROUNDING] Correct the factual error: Clarify that RAG never touches the AI's internal model weights. It only looks up reference text and feeds it as a prompt.\n- [RELATABLE_ANALOGY] Use an Open-Book exam analogy: you don't grow a new brain, you simply look at your notebook.\n- [NO_UNEXPLAINED_JARGON] Remove backpropagation and gradient descent; explain that the AI model remains frozen.\n- [CORE_PILLARS_COVERAGE] Explain the 3 real pillars: Retrieve (search), Augment (attach), Generate (synthesize).\n- [COHERENT_TEACHING_FLOW] Update quiz to test understanding of the search-and-attach mechanism.",
-      "source_failure": "- [ACCURACY_AND_GROUNDING] Fatal technical error: RAG explicitly does NOT retrain or fine-tune neural model weights at query time. It inject",
-      "occurrence_count": 1,
-      "created_at": "2026-11-06T16:29:27.519689"
-    },
-    {
-      "rule_id": "RULE-AUTO-011",
-      "category": "JARGON",
-      "directive": "Guardrail against failure in 'NO_UNEXPLAINED_JARGON': - [ACCURACY_AND_GROUNDING] Correct the factual error: Clarify that RAG never touches the AI's internal model weights. It only looks up reference text and feeds it as a prompt.\n- [RELATABLE_ANALOGY] Use an Open-Book exam analogy: you don't grow a new brain, you simply look at your notebook.\n- [NO_UNEXPLAINED_JARGON] Remove backpropagation and gradient descent; explain that the AI model remains frozen.\n- [CORE_PILLARS_COVERAGE] Explain the 3 real pillars: Retrieve (search), Augment (attach), Generate (synthesize).\n- [COHERENT_TEACHING_FLOW] Update quiz to test understanding of the search-and-attach mechanism.",
-      "source_failure": "- [ACCURACY_AND_GROUNDING] Fatal technical error: RAG explicitly does NOT retrain or fine-tune neural model weights at query time. It inject",
-      "occurrence_count": 1,
-      "created_at": "2026-11-06T16:29:27.519697"
-    },
-    {
-      "rule_id": "RULE-AUTO-012",
-      "category": "GROUNDING",
-      "directive": "Guardrail against failure in 'CORE_PILLARS_COVERAGE': - [ACCURACY_AND_GROUNDING] Correct the factual error: Clarify that RAG never touches the AI's internal model weights. It only looks up reference text and feeds it as a prompt.\n- [RELATABLE_ANALOGY] Use an Open-Book exam analogy: you don't grow a new brain, you simply look at your notebook.\n- [NO_UNEXPLAINED_JARGON] Remove backpropagation and gradient descent; explain that the AI model remains frozen.\n- [CORE_PILLARS_COVERAGE] Explain the 3 real pillars: Retrieve (search), Augment (attach), Generate (synthesize).\n- [COHERENT_TEACHING_FLOW] Update quiz to test understanding of the search-and-attach mechanism.",
-      "source_failure": "- [ACCURACY_AND_GROUNDING] Fatal technical error: RAG explicitly does NOT retrain or fine-tune neural model weights at query time. It inject",
-      "occurrence_count": 1,
-      "created_at": "2026-11-06T16:29:27.519704"
-    },
-    {
-      "rule_id": "RULE-AUTO-013",
-      "category": "GROUNDING",
-      "directive": "Guardrail against failure in 'COHERENT_TEACHING_FLOW': - [ACCURACY_AND_GROUNDING] Correct the factual error: Clarify that RAG never touches the AI's internal model weights. It only looks up reference text and feeds it as a prompt.\n- [RELATABLE_ANALOGY] Use an Open-Book exam analogy: you don't grow a new brain, you simply look at your notebook.\n- [NO_UNEXPLAINED_JARGON] Remove backpropagation and gradient descent; explain that the AI model remains frozen.\n- [CORE_PILLARS_COVERAGE] Explain the 3 real pillars: Retrieve (search), Augment (attach), Generate (synthesize).\n- [COHERENT_TEACHING_FLOW] Update quiz to test understanding of the search-and-attach mechanism.",
-      "source_failure": "- [ACCURACY_AND_GROUNDING] Fatal technical error: RAG explicitly does NOT retrain or fine-tune neural model weights at query time. It inject",
-      "occurrence_count": 1,
-      "created_at": "2026-11-06T16:29:27.519711"
+      "created_at": "2026-11-06T18:08:26.071011"
     }
   ],
-  "last_updated": "2026-11-06T16:29:27.523355"
+  "last_updated": "2026-11-06T18:08:26.071663"
 }

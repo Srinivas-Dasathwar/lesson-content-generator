@@ -41,5 +41,27 @@
         "remedy_applied": "- [ACCURACY_AND_GROUNDING] Correct the factual error: Clarify that RAG never touches the AI's internal model weights. It only looks up reference text and feeds it as a prompt.\n- [RELATABLE_ANALOGY] Use an Open-Book exam analogy: you don't grow a new brain, you simply look at your notebook.\n- [NO_UNEXPLAINED_JARGON] Remove backpropagation and gradient descent; explain that the AI model remains frozen.\n- [CORE_PILLARS_COVERAGE] Explain the 3 real pillars: Retrieve (search), Augment (attach), Generate (synthesize).\n- [COHERENT_TEACHING_FLOW] Update quiz to test understanding of the search-and-attach mechanism."
       }
     ]
+  },
+  {
+    "topic": "RAG (Retrieval-Augmented Generation)",
+    "final_status": "PASSED",
+    "total_iterations": 2,
+    "rejections_count": 1,
+    "rejection_history": [
+      {
+        "iteration": 0,
+        "timestamp": "2026-11-06T18:08:20.476843",
+        "failed_checkpoints": [
+          "ACCURACY_AND_GROUNDING",
+          "RELATABLE_ANALOGY",
+          "NO_UNEXPLAINED_JARGON",
+          "CORE_PILLARS_COVERAGE",
+          "COHERENT_TEACHING_FLOW"
+        ],
+        "root_cause_analysis": "- [ACCURACY_AND_GROUNDING] Fatal technical error: RAG explicitly does NOT retrain or fine-tune neural model weights at query time. It injects context into the prompt.\n- [RELATABLE_ANALOGY] Analogy of 'retraining your brain every single second' reinforces the false claim.\n- [NO_UNEXPLAINED_JARGON] Uses terms like 'gradient descent backpropagation' and 'fine-tuned model checkpoint' without explanation. | Linter flagged: Forbidden graduate-level technical jargon detected without simplification: 'backpropagation' | Linter flagged: Forbidden graduate-level technical jargon detected without simplification: 'gradient descent'\n- [CORE_PILLARS_COVERAGE] Fails because the 'How' is completely inaccurate.\n- [COHERENT_TEACHING_FLOW] The quiz tests the learner on a false premise.",
+        "feedback_injected_to_prompt": "Fix the following rubric failures:\n- [ACCURACY_AND_GROUNDING] Fatal technical error: RAG explicitly does NOT retrain or fine-tune neural model weights at query time. It injects context into the prompt.\n- [RELATABLE_ANALOGY] Analogy of 'retraining your brain every single second' reinforces the false claim.\n- [NO_UNEXPLAINED_JARGON] Uses terms like 'gradient descent backpropagation' and 'fine-tuned model checkpoint' without explanation. | Linter flagged: Forbidden graduate-level technical jargon detected without simplification: 'backpropagation' | Linter flagged: Forbidden graduate-level technical jargon detected without simplification: 'gradient descent'\n- [CORE_PILLARS_COVERAGE] Fails because the 'How' is completely inaccurate.\n- [COHERENT_TEACHING_FLOW] The quiz tests the learner on a false premise.\n\nRequired Remedies:\n- [ACCURACY_AND_GROUNDING] Correct the factual error: Clarify that RAG never touches the AI's internal model weights. It only looks up reference text and feeds it as a prompt.\n- [RELATABLE_ANALOGY] Use an Open-Book exam analogy: you don't grow a new brain, you simply look at your notebook.\n- [NO_UNEXPLAINED_JARGON] Remove backpropagation and gradient descent; explain that the AI model remains frozen.\n- [CORE_PILLARS_COVERAGE] Explain the 3 real pillars: Retrieve (search), Augment (attach), Generate (synthesize).\n- [COHERENT_TEACHING_FLOW] Update quiz to test understanding of the search-and-attach mechanism.",
+        "remedy_applied": "- [ACCURACY_AND_GROUNDING] Correct the factual error: Clarify that RAG never touches the AI's internal model weights. It only looks up reference text and feeds it as a prompt.\n- [RELATABLE_ANALOGY] Use an Open-Book exam analogy: you don't grow a new brain, you simply look at your notebook.\n- [NO_UNEXPLAINED_JARGON] Remove backpropagation and gradient descent; explain that the AI model remains frozen.\n- [CORE_PILLARS_COVERAGE] Explain the 3 real pillars: Retrieve (search), Augment (attach), Generate (synthesize).\n- [COHERENT_TEACHING_FLOW] Update quiz to test understanding of the search-and-attach mechanism."
+      }
+    ]
   }
 ]

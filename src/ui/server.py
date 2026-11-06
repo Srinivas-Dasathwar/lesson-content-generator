@@ -17,7 +17,7 @@ from src.providers.llm_provider import get_llm_provider
 from src.memory.institutional_memory import InstitutionalMemory
 from src.models import TargetAudience
 
-app = FastAPI(title="NxtWave Lesson Content Agent", version="1.0.0")
+app = FastAPI(title="Curriculum Studio - Lesson Quality Evaluator", version="1.0.0")
 
 STATIC_DIR = os.path.join(os.path.dirname(__file__), "static")
 os.makedirs(STATIC_DIR, exist_ok=True)

@@ -18,7 +18,7 @@ from src.providers.llm_provider import BaseLLMProvider
 
 logger = logging.getLogger(__name__)
 
-RUBRIC_SYSTEM_PROMPT = """You are the Lead Curriculum Quality Auditor at NxtWave.
+RUBRIC_SYSTEM_PROMPT = """You are the Lead Curriculum Quality Auditor for an advanced AI learning platform.
 Your role is to rigorously judge educational lessons designed for:
 TARGET LEARNER: A 12th-grade graduate from India, from a non-English-medium school, with limited English vocabulary, who wants to kickstart a tech/AI career.
 
