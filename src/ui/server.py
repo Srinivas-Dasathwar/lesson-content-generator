@@ -7,7 +7,7 @@ deliberate flaw injection testing, and lesson export.
 import os
 import uvicorn
 from fastapi import FastAPI, HTTPException
-from fastapi.responses import HTMLResponse, JSONResponse
+from fastapi.responses import HTMLResponse, JSONResponse, PlainTextResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 from typing import Optional, Dict, Any, List
@@ -77,6 +77,23 @@ async def reset_memory_api():
     memory = InstitutionalMemory()
     memory._seed_default_rules()
     return {"message": "Memory reset to initial seed guardrails."}
+
+@app.get("/api/download-lesson")
+async def download_lesson():
+    lesson_path = os.path.join(
+        os.path.dirname(os.path.dirname(os.path.dirname(__file__))),
+        "docs",
+        "FINAL_LESSON_RAG.md"
+    )
+    if os.path.exists(lesson_path):
+        with open(lesson_path, "r", encoding="utf-8") as f:
+            content = f.read()
+        return PlainTextResponse(
+            content,
+            media_type="text/markdown",
+            headers={"Content-Disposition": "attachment; filename=FINAL_LESSON_RAG.md"}
+        )
+    raise HTTPException(status_code=404, detail="Lesson document not found.")
 
 def start_server(host: str = "127.0.0.1", port: int = 8000):
     print(f"Starting Web UI Dashboard on http://{host}:{port} ...")
