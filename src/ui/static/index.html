@@ -3,53 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Curriculum Studio · Autonomous Self-Evaluating Content Systems</title>
+    <title>Curriculum Studio · Self-Evaluating Lesson Generator</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-    <!-- Marked.js for perfect Markdown parsing with local fallback -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
     <style>
         :root {
-            --bg-base: #07090e;
-            --bg-surface: #0d121d;
-            --bg-card: #121826;
-            --bg-card-hover: #182238;
-            --bg-elevated: #1a243b;
+            --bg-page: #f8fafc;
+            --bg-card: #ffffff;
+            --bg-subtle: #f1f5f9;
+            --bg-hover: #f8fafc;
             
-            --border-subtle: rgba(255, 255, 255, 0.07);
-            --border-medium: rgba(255, 255, 255, 0.12);
-            --border-focus: #6366f1;
+            --border-light: #e2e8f0;
+            --border-medium: #cbd5e1;
+            --border-focus: #3b82f6;
             
-            --text-primary: #f8fafc;
-            --text-secondary: #94a3b8;
+            --text-heading: #0f172a;
+            --text-body: #334155;
             --text-muted: #64748b;
-            --text-accent: #818cf8;
+            --text-light: #94a3b8;
             
-            --brand-primary: #6366f1;
-            --brand-gradient: linear-gradient(135deg, #6366f1 0%, #4f46e5 50%, #06b6d4 100%);
-            --brand-glow: rgba(99, 102, 241, 0.25);
+            --primary: #2563eb;
+            --primary-hover: #1d4ed8;
+            --primary-subtle: #eff6ff;
+            --primary-border: #bfdbfe;
             
-            --pass-emerald: #10b981;
-            --pass-bg: rgba(16, 185, 129, 0.08);
-            --pass-border: rgba(16, 185, 129, 0.3);
+            --success: #16a34a;
+            --success-bg: #f0fdf4;
+            --success-border: #bbf7d0;
+            --success-text: #15803d;
             
-            --fail-rose: #f43f5e;
-            --fail-bg: rgba(244, 63, 94, 0.08);
-            --fail-border: rgba(244, 63, 94, 0.3);
+            --danger: #dc2626;
+            --danger-bg: #fef2f2;
+            --danger-border: #fecaca;
+            --danger-text: #b91c1c;
             
-            --warn-amber: #f59e0b;
-            --warn-bg: rgba(245, 158, 11, 0.08);
-            --warn-border: rgba(245, 158, 11, 0.3);
+            --warning: #d97706;
+            --warning-bg: #fffbeb;
+            --warning-border: #fde68a;
+            --warning-text: #b45309;
             
             --radius-sm: 6px;
             --radius-md: 10px;
-            --radius-lg: 16px;
+            --radius-lg: 14px;
             --radius-full: 9999px;
             
-            --shadow-card: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
-            --shadow-glow: 0 0 35px -5px var(--brand-glow);
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.04);
         }
 
         * {
@@ -60,62 +63,54 @@
 
         body {
             font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            background-color: var(--bg-base);
-            color: var(--text-primary);
+            background-color: var(--bg-page);
+            color: var(--text-body);
             line-height: 1.6;
-            min-height: 100vh;
-            background-image: 
-                radial-gradient(circle at 15% 10%, rgba(99, 102, 241, 0.08) 0%, transparent 40%),
-                radial-gradient(circle at 85% 85%, rgba(6, 182, 212, 0.06) 0%, transparent 40%);
-            background-attachment: fixed;
             -webkit-font-smoothing: antialiased;
         }
 
-        /* Top Navigation Header */
-        .topbar {
-            background-color: rgba(13, 18, 29, 0.75);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border-bottom: 1px solid var(--border-subtle);
-            padding: 0.85rem 2rem;
+        /* Top Header */
+        .site-header {
+            background-color: var(--bg-card);
+            border-bottom: 1px solid var(--border-light);
+            padding: 1rem 2rem;
             position: sticky;
             top: 0;
-            z-index: 100;
+            z-index: 50;
         }
 
-        .topbar-inner {
-            max-width: 1560px;
+        .header-content {
+            max-width: 1200px;
             margin: 0 auto;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
-        .brand-group {
+        .brand {
             display: flex;
             align-items: center;
-            gap: 0.9rem;
+            gap: 0.75rem;
         }
 
         .brand-icon {
-            width: 38px;
-            height: 38px;
-            background: var(--brand-gradient);
-            border-radius: var(--radius-md);
+            width: 34px;
+            height: 34px;
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            color: #ffffff;
+            border-radius: var(--radius-sm);
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #ffffff;
-            font-weight: 800;
-            font-size: 1rem;
-            box-shadow: 0 0 20px rgba(99, 102, 241, 0.4);
-            letter-spacing: -0.03em;
+            font-weight: 700;
+            font-size: 0.95rem;
+            box-shadow: 0 2px 4px rgba(37, 99, 235, 0.2);
         }
 
-        .brand-details h1 {
-            font-size: 1.05rem;
+        .brand-text h1 {
+            font-size: 1.1rem;
             font-weight: 700;
-            letter-spacing: -0.01em;
+            color: var(--text-heading);
             display: flex;
             align-items: center;
             gap: 0.5rem;
@@ -124,442 +119,327 @@
         .brand-tag {
             font-size: 0.7rem;
             font-weight: 600;
-            background: rgba(99, 102, 241, 0.15);
-            color: #a5b4fc;
+            background-color: var(--primary-subtle);
+            color: var(--primary);
             padding: 0.15rem 0.5rem;
             border-radius: var(--radius-full);
-            border: 1px solid rgba(99, 102, 241, 0.3);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
+            border: 1px solid var(--primary-border);
         }
 
-        .persona-badge {
+        .header-meta {
             display: flex;
             align-items: center;
-            gap: 0.6rem;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid var(--border-medium);
-            padding: 0.4rem 0.9rem;
+            gap: 0.75rem;
+        }
+
+        .persona-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            background-color: #f8fafc;
+            border: 1px solid var(--border-light);
+            padding: 0.35rem 0.8rem;
             border-radius: var(--radius-full);
             font-size: 0.8rem;
-            color: var(--text-secondary);
-        }
-
-        .pulse-dot {
-            width: 8px;
-            height: 8px;
-            background-color: var(--pass-emerald);
-            border-radius: 50%;
-            box-shadow: 0 0 10px var(--pass-emerald);
-            animation: pulse 2s infinite ease-in-out;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.4; transform: scale(0.85); }
-        }
-
-        /* System Pipeline Workflow Tracker */
-        .pipeline-tracker {
-            max-width: 1560px;
-            margin: 1.25rem auto 0;
-            padding: 0 2rem;
-        }
-
-        .pipeline-bar {
-            background: var(--bg-surface);
-            border: 1px solid var(--border-subtle);
-            border-radius: var(--radius-lg);
-            padding: 0.85rem 1.25rem;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 0.5rem;
-            overflow-x: auto;
-        }
-
-        .pipe-step {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-size: 0.785rem;
-            font-weight: 600;
             color: var(--text-muted);
-            white-space: nowrap;
-            padding: 0.3rem 0.6rem;
-            border-radius: var(--radius-sm);
-            transition: all 0.2s ease;
         }
 
-        .pipe-step.active {
-            color: var(--text-primary);
-            background: rgba(99, 102, 241, 0.15);
-            border: 1px solid rgba(99, 102, 241, 0.4);
-            box-shadow: 0 0 15px rgba(99, 102, 241, 0.2);
-        }
-
-        .pipe-step.completed {
-            color: var(--pass-emerald);
-        }
-
-        .pipe-num {
-            width: 20px;
-            height: 20px;
+        .persona-dot {
+            width: 7px;
+            height: 7px;
             border-radius: 50%;
-            background: rgba(255, 255, 255, 0.08);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.7rem;
-            font-family: 'JetBrains Mono', monospace;
+            background-color: var(--success);
         }
 
-        .pipe-step.active .pipe-num {
-            background: var(--brand-primary);
-            color: #ffffff;
+        /* Main Container */
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto 4rem;
+            padding: 0 1.5rem;
         }
 
-        .pipe-step.completed .pipe-num {
-            background: var(--pass-emerald);
-            color: #ffffff;
-        }
-
-        .pipe-arrow {
-            color: var(--border-medium);
-            font-size: 0.85rem;
-        }
-
-        /* Layout Grid */
-        .layout-container {
-            max-width: 1560px;
-            margin: 1.5rem auto 3rem;
-            padding: 0 2rem;
-            display: grid;
-            grid-template-columns: 380px 1fr;
-            gap: 1.75rem;
-            align-items: start;
-        }
-
-        @media (max-width: 1120px) {
-            .layout-container {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        /* Glassmorphic Cards */
-        .card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-subtle);
+        /* Top Action / Control Card */
+        .control-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-light);
             border-radius: var(--radius-lg);
-            padding: 1.5rem;
-            box-shadow: var(--shadow-card);
-            transition: border-color 0.2s ease;
+            padding: 1.75rem 2rem;
+            box-shadow: var(--shadow-sm);
+            margin-bottom: 2rem;
         }
 
-        .card:hover {
-            border-color: var(--border-medium);
-        }
-
-        .card-header {
+        .control-header {
             margin-bottom: 1.25rem;
-            padding-bottom: 0.85rem;
-            border-bottom: 1px solid var(--border-subtle);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
         }
 
-        .card-title {
-            font-size: 1rem;
+        .control-header h2 {
+            font-size: 1.15rem;
             font-weight: 700;
-            color: var(--text-primary);
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
+            color: var(--text-heading);
         }
 
-        .card-subtitle {
-            font-size: 0.8rem;
+        .control-header p {
+            font-size: 0.875rem;
             color: var(--text-muted);
             margin-top: 0.2rem;
         }
 
-        /* Form Inputs */
-        .field {
-            margin-bottom: 1.25rem;
+        .control-grid {
+            display: grid;
+            grid-template-columns: 2fr 1.5fr auto;
+            gap: 1.25rem;
+            align-items: flex-end;
         }
 
-        label {
-            display: block;
-            font-size: 0.825rem;
-            font-weight: 600;
-            color: var(--text-secondary);
-            margin-bottom: 0.45rem;
-            text-transform: uppercase;
-            letter-spacing: 0.04em;
+        @media (max-width: 900px) {
+            .control-grid {
+                grid-template-columns: 1fr;
+            }
         }
 
-        input[type="text"], input[type="number"], select {
-            width: 100%;
-            background-color: var(--bg-surface);
-            border: 1px solid var(--border-subtle);
-            color: var(--text-primary);
-            padding: 0.75rem 0.9rem;
-            border-radius: var(--radius-md);
-            font-size: 0.9rem;
-            font-family: inherit;
-            transition: all 0.15s ease;
-            outline: none;
-        }
-
-        input:focus, select:focus {
-            border-color: var(--brand-primary);
-            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
-            background-color: #121929;
-        }
-
-        .hint {
-            display: block;
-            font-size: 0.75rem;
-            color: var(--text-muted);
-            margin-top: 0.35rem;
-            line-height: 1.4;
-        }
-
-        /* Preset Topic Pills */
-        .preset-group {
-            display: flex;
-            gap: 0.4rem;
-            flex-wrap: wrap;
-            margin-top: 0.5rem;
-        }
-
-        .preset-pill {
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid var(--border-subtle);
-            color: var(--text-secondary);
-            font-size: 0.725rem;
-            padding: 0.25rem 0.6rem;
-            border-radius: var(--radius-sm);
-            cursor: pointer;
-            transition: all 0.15s ease;
-        }
-
-        .preset-pill:hover {
-            background: rgba(99, 102, 241, 0.15);
-            border-color: rgba(99, 102, 241, 0.4);
-            color: #ffffff;
-        }
-
-        /* Interactive Flaw Injection Options */
-        .flaw-selector {
+        .form-group {
             display: flex;
             flex-direction: column;
-            gap: 0.5rem;
-            margin-top: 0.4rem;
-        }
-
-        .flaw-option {
-            background: var(--bg-surface);
-            border: 1px solid var(--border-subtle);
-            border-radius: var(--radius-md);
-            padding: 0.75rem;
-            cursor: pointer;
-            transition: all 0.15s ease;
-            display: flex;
-            align-items: flex-start;
-            gap: 0.65rem;
-        }
-
-        .flaw-option:hover {
-            border-color: var(--border-medium);
-            background: #121929;
-        }
-
-        .flaw-option.selected {
-            border-color: var(--brand-primary);
-            background: rgba(99, 102, 241, 0.1);
-        }
-
-        .flaw-radio {
-            margin-top: 0.25rem;
-            accent-color: var(--brand-primary);
-        }
-
-        .flaw-title {
-            font-size: 0.825rem;
-            font-weight: 600;
-            color: var(--text-primary);
-            display: flex;
-            align-items: center;
             gap: 0.4rem;
         }
 
-        .flaw-desc {
-            font-size: 0.75rem;
-            color: var(--text-muted);
-            margin-top: 0.15rem;
-            line-height: 1.35;
+        .form-label {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--text-heading);
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
         }
 
-        /* Buttons */
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.55rem;
-            width: 100%;
-            padding: 0.85rem 1.4rem;
+        .form-input, .form-select {
+            background-color: #ffffff;
+            border: 1px solid var(--border-medium);
+            color: var(--text-heading);
+            padding: 0.75rem 0.9rem;
             border-radius: var(--radius-md);
-            font-size: 0.9rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-            border: none;
-            letter-spacing: 0.01em;
+            font-size: 0.925rem;
+            font-family: inherit;
+            transition: all 0.15s ease;
+            width: 100%;
+        }
+
+        .form-input:focus, .form-select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
         }
 
         .btn-primary {
-            background: var(--brand-gradient);
+            background-color: var(--primary);
             color: #ffffff;
-            box-shadow: 0 4px 20px rgba(99, 102, 241, 0.35);
-            position: relative;
-            overflow: hidden;
+            font-weight: 600;
+            font-size: 0.925rem;
+            padding: 0.78rem 1.6rem;
+            border-radius: var(--radius-md);
+            border: 1px solid transparent;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            white-space: nowrap;
+            height: 44px;
         }
 
         .btn-primary:hover:not(:disabled) {
-            transform: translateY(-1px);
-            box-shadow: 0 6px 25px rgba(99, 102, 241, 0.5);
-        }
-
-        .btn-primary:active:not(:disabled) {
-            transform: translateY(1px);
+            background-color: var(--primary-hover);
+            box-shadow: 0 2px 6px rgba(37, 99, 235, 0.25);
         }
 
         .btn-primary:disabled {
             opacity: 0.6;
             cursor: not-allowed;
-            transform: none;
         }
 
         .btn-secondary {
-            background: var(--bg-surface);
-            color: var(--text-secondary);
-            border: 1px solid var(--border-subtle);
-            margin-top: 0.75rem;
+            background-color: #ffffff;
+            color: var(--text-body);
+            border: 1px solid var(--border-medium);
+            font-size: 0.85rem;
+            font-weight: 600;
+            padding: 0.45rem 0.9rem;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: all 0.15s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
         }
 
         .btn-secondary:hover {
-            background: #162035;
-            color: var(--text-primary);
-            border-color: var(--border-medium);
+            background-color: var(--bg-subtle);
+            border-color: var(--border-light);
         }
 
-        .btn-ghost {
-            background: transparent;
+        /* Helper Quick Chips */
+        .quick-chips {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 0.85rem;
+            font-size: 0.775rem;
             color: var(--text-muted);
+            flex-wrap: wrap;
+        }
+
+        .chip {
+            background-color: var(--bg-subtle);
+            color: var(--text-body);
+            padding: 0.2rem 0.6rem;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
             border: 1px solid transparent;
-            width: auto;
-            padding: 0.45rem 0.85rem;
-            font-size: 0.8rem;
+            transition: all 0.15s ease;
         }
 
-        .btn-ghost:hover {
-            color: var(--text-primary);
-            background: rgba(255, 255, 255, 0.05);
-            border-color: var(--border-subtle);
+        .chip:hover {
+            background-color: var(--primary-subtle);
+            color: var(--primary);
+            border-color: var(--primary-border);
         }
 
-        /* Metrics Widget */
-        .metric-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 0.75rem;
-            margin-top: 1rem;
-        }
-
-        .metric-card {
-            background: var(--bg-surface);
-            border: 1px solid var(--border-subtle);
-            border-radius: var(--radius-md);
-            padding: 0.85rem 0.65rem;
-            text-align: center;
-        }
-
-        .metric-val {
-            font-size: 1.35rem;
-            font-weight: 800;
-            color: var(--text-primary);
-            font-family: 'JetBrains Mono', monospace;
-        }
-
-        .metric-lbl {
-            font-size: 0.7rem;
-            color: var(--text-muted);
-            margin-top: 0.2rem;
-            text-transform: uppercase;
-            letter-spacing: 0.03em;
-        }
-
-        /* Tabs Navigation */
-        .tabs-header {
+        /* Workflow Status Banner */
+        .status-alert {
+            border-radius: var(--radius-lg);
+            padding: 1.25rem 1.5rem;
+            margin-bottom: 2rem;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            border-bottom: 1px solid var(--border-subtle);
-            margin-bottom: 1.5rem;
-            gap: 1rem;
-            overflow-x: auto;
+            gap: 1.5rem;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.25s ease;
         }
 
-        .tab-nav {
+        .status-alert.ready {
+            background-color: #ffffff;
+            border: 1px solid var(--border-light);
+        }
+
+        .status-alert.passed {
+            background-color: var(--success-bg);
+            border: 1px solid var(--success-border);
+        }
+
+        .status-alert.failed {
+            background-color: var(--danger-bg);
+            border: 1px solid var(--danger-border);
+        }
+
+        .status-info {
             display: flex;
-            gap: 0.4rem;
+            align-items: center;
+            gap: 0.85rem;
+        }
+
+        .status-icon {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+
+        .status-alert.ready .status-icon { background: var(--bg-subtle); color: var(--text-muted); }
+        .status-alert.passed .status-icon { background: #dcfce7; color: var(--success-text); }
+        .status-alert.failed .status-icon { background: #fee2e2; color: var(--danger-text); }
+
+        .status-text h3 {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text-heading);
+        }
+
+        .status-text p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-top: 0.15rem;
+        }
+
+        .status-metrics {
+            display: flex;
+            align-items: center;
+            gap: 1.25rem;
+        }
+
+        .status-metric-box {
+            text-align: right;
+        }
+
+        .metric-number {
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: var(--text-heading);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .metric-label {
+            font-size: 0.725rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+        }
+
+        /* Main Tabs Bar */
+        .tab-bar {
+            display: flex;
+            gap: 0.25rem;
+            border-bottom: 1px solid var(--border-light);
+            margin-bottom: 2rem;
+            overflow-x: auto;
         }
 
         .tab-btn {
             background: transparent;
             border: none;
-            color: var(--text-muted);
-            padding: 0.75rem 1.15rem;
-            font-size: 0.875rem;
+            padding: 0.75rem 1.25rem;
+            font-size: 0.925rem;
             font-weight: 600;
+            color: var(--text-muted);
             cursor: pointer;
             border-bottom: 2px solid transparent;
             margin-bottom: -1px;
             transition: all 0.15s ease;
-            white-space: nowrap;
-            display: flex;
+            display: inline-flex;
             align-items: center;
             gap: 0.5rem;
+            white-space: nowrap;
         }
 
         .tab-btn:hover {
-            color: var(--text-primary);
+            color: var(--text-heading);
         }
 
         .tab-btn.active {
-            color: #818cf8;
-            border-bottom-color: var(--brand-primary);
+            color: var(--primary);
+            border-bottom-color: var(--primary);
         }
 
-        .badge-count {
-            background: rgba(244, 63, 94, 0.2);
-            color: var(--fail-rose);
+        .tab-badge {
             font-size: 0.7rem;
             font-weight: 700;
+            background-color: var(--danger-bg);
+            color: var(--danger-text);
+            border: 1px solid var(--danger-border);
             padding: 0.1rem 0.45rem;
             border-radius: var(--radius-full);
-            border: 1px solid var(--fail-border);
         }
 
         .tab-pane {
             display: none;
-            animation: fadeIn 0.25s ease;
         }
 
         .tab-pane.active {
             display: block;
+            animation: fadeIn 0.2s ease;
         }
 
         @keyframes fadeIn {
@@ -567,412 +447,379 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Banner Status */
-        .status-hero {
-            background: var(--bg-card);
-            border: 1px solid var(--border-subtle);
+        /* TAB 1: Lesson Reader (Medium / Notion Style) */
+        .lesson-article-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-light);
             border-radius: var(--radius-lg);
-            padding: 1.4rem 1.6rem;
-            margin-bottom: 1.5rem;
+            padding: 3rem 3.5rem;
+            box-shadow: var(--shadow-sm);
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        @media (max-width: 768px) {
+            .lesson-article-card {
+                padding: 1.75rem;
+            }
+        }
+
+        .lesson-top-toolbar {
             display: flex;
-            align-items: center;
             justify-content: space-between;
-            gap: 1.25rem;
-            box-shadow: var(--shadow-card);
-        }
-
-        .status-hero.approved {
-            border-color: var(--pass-border);
-            background: linear-gradient(180deg, rgba(16, 185, 129, 0.08) 0%, rgba(13, 18, 29, 0.6) 100%);
-        }
-
-        .status-hero.rejected {
-            border-color: var(--fail-border);
-            background: linear-gradient(180deg, rgba(244, 63, 94, 0.08) 0%, rgba(13, 18, 29, 0.6) 100%);
-        }
-
-        .status-title {
-            font-size: 1.15rem;
-            font-weight: 700;
-            display: flex;
             align-items: center;
-            gap: 0.6rem;
+            padding-bottom: 1.5rem;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid var(--border-light);
         }
 
-        .status-hero.approved .status-title { color: var(--pass-emerald); }
-        .status-hero.rejected .status-title { color: var(--fail-rose); }
-
-        .status-subtitle {
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-            margin-top: 0.35rem;
-            max-width: 750px;
-        }
-
-        .status-meta {
-            font-size: 0.775rem;
+        .lesson-meta {
+            font-size: 0.825rem;
             color: var(--text-muted);
-            margin-top: 0.4rem;
-            font-family: 'JetBrains Mono', monospace;
         }
 
-        /* 6 Checkpoint Cards */
-        .checkpoint-grid {
+        .lesson-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .prose-body {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            color: var(--text-body);
+        }
+
+        .prose-body h1 {
+            font-size: 2.1rem;
+            font-weight: 800;
+            color: var(--text-heading);
+            line-height: 1.25;
+            margin-bottom: 0.5rem;
+        }
+
+        .prose-body h2 {
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: var(--text-heading);
+            margin: 2.5rem 0 1rem;
+            padding-bottom: 0.4rem;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .prose-body h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-heading);
+            margin: 1.5rem 0 0.5rem;
+        }
+
+        .prose-body p {
+            margin-bottom: 1.25rem;
+        }
+
+        .prose-body strong {
+            color: var(--text-heading);
+            font-weight: 700;
+        }
+
+        .prose-body pre {
+            background-color: #0f172a;
+            color: #38bdf8;
+            padding: 1.25rem 1.5rem;
+            border-radius: var(--radius-md);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            overflow-x: auto;
+            margin: 1.5rem 0;
+            line-height: 1.6;
+        }
+
+        .prose-body hr {
+            border: 0;
+            height: 1px;
+            background-color: var(--border-light);
+            margin: 2.5rem 0;
+        }
+
+        .prose-body blockquote {
+            background-color: var(--primary-subtle);
+            border-left: 4px solid var(--primary);
+            padding: 1rem 1.25rem;
+            border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+            margin: 1.5rem 0;
+            color: var(--text-heading);
+        }
+
+        .prose-body ul, .prose-body ol {
+            padding-left: 1.5rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .prose-body li {
+            margin-bottom: 0.5rem;
+        }
+
+        /* TAB 2: Rubric Checklist */
+        .rubric-grid {
             display: flex;
             flex-direction: column;
-            gap: 0.85rem;
+            gap: 1rem;
         }
 
-        .checkpoint-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-subtle);
+        .rubric-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-light);
             border-radius: var(--radius-md);
-            padding: 1.25rem 1.4rem;
-            transition: all 0.2s ease;
+            padding: 1.35rem 1.6rem;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.15s ease;
         }
 
-        .checkpoint-card:hover {
+        .rubric-card:hover {
             border-color: var(--border-medium);
-            background: var(--bg-card-hover);
         }
 
-        .checkpoint-top {
+        .rubric-card-top {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 0.6rem;
         }
 
-        .checkpoint-title-group {
+        .rubric-title-wrap {
             display: flex;
             align-items: center;
             gap: 0.6rem;
         }
 
-        .checkpoint-id {
-            font-size: 0.7rem;
+        .rubric-id {
+            font-size: 0.725rem;
             font-family: 'JetBrains Mono', monospace;
+            background-color: var(--bg-subtle);
             color: var(--text-muted);
-            background: rgba(255, 255, 255, 0.04);
             padding: 0.15rem 0.45rem;
             border-radius: var(--radius-sm);
         }
 
-        .checkpoint-name {
-            font-size: 0.95rem;
+        .rubric-title {
+            font-size: 0.975rem;
             font-weight: 700;
-            color: var(--text-primary);
+            color: var(--text-heading);
         }
 
-        .badge-pill {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.35rem;
-            padding: 0.25rem 0.65rem;
-            border-radius: var(--radius-full);
+        .pass-tag {
             font-size: 0.725rem;
             font-weight: 700;
-            letter-spacing: 0.05em;
+            background-color: var(--success-bg);
+            color: var(--success-text);
+            border: 1px solid var(--success-border);
+            padding: 0.2rem 0.65rem;
+            border-radius: var(--radius-full);
             text-transform: uppercase;
+            letter-spacing: 0.04em;
         }
 
-        .badge-pill.pass {
-            background: var(--pass-bg);
-            color: var(--pass-emerald);
-            border: 1px solid var(--pass-border);
+        .fail-tag {
+            font-size: 0.725rem;
+            font-weight: 700;
+            background-color: var(--danger-bg);
+            color: var(--danger-text);
+            border: 1px solid var(--danger-border);
+            padding: 0.2rem 0.65rem;
+            border-radius: var(--radius-full);
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
         }
 
-        .badge-pill.fail {
-            background: var(--fail-bg);
-            color: var(--fail-rose);
-            border: 1px solid var(--fail-border);
-        }
-
-        .checkpoint-body {
+        .rubric-critique {
             font-size: 0.875rem;
-            color: var(--text-secondary);
+            color: var(--text-body);
             line-height: 1.55;
         }
 
-        .citation-box {
-            background: rgba(0, 0, 0, 0.3);
-            border-left: 3px solid #6366f1;
+        .rubric-snippet {
+            background-color: var(--bg-subtle);
+            border-left: 3px solid var(--primary);
             padding: 0.6rem 0.85rem;
-            margin-top: 0.65rem;
+            margin-top: 0.75rem;
             border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
-            font-size: 0.8rem;
-            color: #cbd5e1;
+            font-size: 0.825rem;
+            color: var(--text-body);
             font-family: 'JetBrains Mono', monospace;
-            word-break: break-word;
         }
 
-        .remedy-box {
-            background: var(--warn-bg);
-            border-left: 3px solid var(--warn-amber);
+        .rubric-remedy {
+            background-color: var(--warning-bg);
+            border-left: 3px solid var(--warning);
             padding: 0.6rem 0.85rem;
-            margin-top: 0.65rem;
+            margin-top: 0.75rem;
             border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
-            font-size: 0.8rem;
-            color: #fde68a;
-            line-height: 1.45;
+            font-size: 0.825rem;
+            color: var(--warning-text);
         }
 
-        /* Rejections View */
-        .rejection-item {
-            background: var(--bg-card);
-            border: 1px solid var(--fail-border);
-            border-radius: var(--radius-lg);
-            padding: 1.5rem;
-            margin-bottom: 1.25rem;
+        /* TAB 3: Rejection Log */
+        .rejection-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--danger-border);
+            border-left: 4px solid var(--danger);
+            border-radius: var(--radius-md);
+            padding: 1.5rem 1.75rem;
+            margin-bottom: 1.5rem;
+            box-shadow: var(--shadow-sm);
         }
 
-        .rejection-top {
+        .rejection-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 1rem;
             padding-bottom: 0.75rem;
-            border-bottom: 1px solid var(--border-subtle);
+            border-bottom: 1px solid var(--border-light);
         }
 
-        .diff-grid {
+        .rejection-round-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--danger-text);
+        }
+
+        .rejection-diff-columns {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 1.25rem;
             margin-top: 1rem;
         }
 
-        @media (max-width: 900px) {
-            .diff-grid {
+        @media (max-width: 768px) {
+            .rejection-diff-columns {
                 grid-template-columns: 1fr;
             }
         }
 
-        .diff-panel {
-            background: var(--bg-surface);
-            border: 1px solid var(--border-subtle);
+        .diff-column-card {
+            background-color: var(--bg-page);
+            border: 1px solid var(--border-light);
             border-radius: var(--radius-md);
             padding: 1rem;
         }
 
-        .diff-title {
+        .diff-column-title {
             font-size: 0.775rem;
             font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 0.05em;
+            letter-spacing: 0.04em;
             margin-bottom: 0.5rem;
-            display: flex;
-            align-items: center;
-            gap: 0.4rem;
         }
 
-        .diff-snippet {
-            background: rgba(0, 0, 0, 0.4);
+        .diff-code-view {
+            background-color: #ffffff;
+            border: 1px solid var(--border-light);
             border-radius: var(--radius-sm);
             padding: 0.75rem;
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.785rem;
-            color: #e2e8f0;
-            line-height: 1.5;
-            max-height: 240px;
+            font-size: 0.8rem;
+            color: var(--text-body);
+            max-height: 220px;
             overflow-y: auto;
             white-space: pre-wrap;
+            line-height: 1.5;
         }
 
-        /* Approved Lesson Canvas */
-        .doc-canvas {
-            background: #0f1626;
-            border: 1px solid var(--border-medium);
-            border-radius: var(--radius-lg);
-            padding: 2.75rem 3rem;
-            box-shadow: var(--shadow-card);
-            color: #e2e8f0;
+        /* TAB 4: Institutional Memory */
+        .memory-layout {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 1.5rem;
         }
 
-        .doc-top-bar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding-bottom: 1.5rem;
-            margin-bottom: 2rem;
-            border-bottom: 1px solid var(--border-subtle);
+        @media (max-width: 850px) {
+            .memory-layout {
+                grid-template-columns: 1fr;
+            }
         }
 
-        .doc-prose {
-            font-size: 1.05rem;
-            line-height: 1.85;
-            color: #cbd5e1;
+        .memory-stats-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            box-shadow: var(--shadow-sm);
+            height: fit-content;
         }
 
-        .doc-prose h1 {
-            font-size: 2.2rem;
+        .stat-item {
+            margin-bottom: 1.25rem;
+        }
+
+        .stat-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .stat-num {
+            font-size: 1.75rem;
             font-weight: 800;
-            color: #ffffff;
-            line-height: 1.25;
-            margin-bottom: 0.5rem;
-            background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .doc-prose h2 {
-            font-size: 1.45rem;
-            font-weight: 700;
-            color: #ffffff;
-            margin: 2.5rem 0 1rem;
-            padding-bottom: 0.4rem;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-            display: flex;
-            align-items: center;
-            gap: 0.6rem;
-        }
-
-        .doc-prose h3 {
-            font-size: 1.15rem;
-            font-weight: 700;
-            color: #f1f5f9;
-            margin: 1.5rem 0 0.5rem;
-        }
-
-        .doc-prose p {
-            margin-bottom: 1.25rem;
-        }
-
-        .doc-prose strong {
-            color: #ffffff;
-            font-weight: 700;
-        }
-
-        .doc-prose em {
-            color: #a5b4fc;
-        }
-
-        .doc-prose hr {
-            border: 0;
-            height: 1px;
-            background: var(--border-subtle);
-            margin: 2.5rem 0;
-        }
-
-        .doc-prose pre {
-            background: #070a12;
-            border: 1px solid var(--border-medium);
-            border-radius: var(--radius-md);
-            padding: 1.25rem;
+            color: var(--text-heading);
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.85rem;
-            color: #38bdf8;
-            overflow-x: auto;
-            margin: 1.5rem 0;
-            line-height: 1.55;
         }
 
-        .doc-prose blockquote {
-            background: rgba(99, 102, 241, 0.08);
-            border-left: 4px solid var(--brand-primary);
-            padding: 1rem 1.25rem;
-            border-radius: 0 var(--radius-md) var(--radius-md) 0;
-            margin: 1.5rem 0;
-            color: #e0e7ff;
+        .stat-name {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
         }
 
-        .doc-prose ul, .doc-prose ol {
-            padding-left: 1.5rem;
-            margin-bottom: 1.25rem;
-        }
-
-        .doc-prose li {
-            margin-bottom: 0.5rem;
-        }
-
-        /* Interactive Quiz Option */
-        .quiz-choice {
-            background: var(--bg-surface);
-            border: 1px solid var(--border-subtle);
-            border-radius: var(--radius-md);
-            padding: 0.85rem 1rem;
-            margin-bottom: 0.6rem;
-            cursor: pointer;
-            transition: all 0.15s ease;
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-        }
-
-        .quiz-choice:hover {
-            border-color: var(--brand-primary);
-            background: #151d30;
-        }
-
-        .quiz-choice.correct {
-            border-color: var(--pass-emerald) !important;
-            background: var(--pass-bg) !important;
-            color: var(--pass-emerald);
-        }
-
-        .quiz-choice.incorrect {
-            border-color: var(--fail-rose) !important;
-            background: var(--fail-bg) !important;
-            color: var(--fail-rose);
-        }
-
-        /* Institutional Memory Grid */
-        .memory-rule-grid {
+        .rule-list {
             display: flex;
             flex-direction: column;
             gap: 0.85rem;
         }
 
-        .memory-rule-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-subtle);
+        .rule-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-light);
             border-radius: var(--radius-md);
-            padding: 1.25rem;
-            transition: border-color 0.2s ease;
+            padding: 1.25rem 1.5rem;
+            box-shadow: var(--shadow-sm);
         }
 
-        .memory-rule-card:hover {
-            border-color: var(--border-medium);
-        }
-
-        .rule-top {
+        .rule-card-top {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.4rem;
         }
 
-        .rule-badge {
+        .rule-category-badge {
             font-size: 0.7rem;
             font-weight: 700;
+            background-color: var(--primary-subtle);
+            color: var(--primary);
+            border: 1px solid var(--primary-border);
             padding: 0.15rem 0.5rem;
-            border-radius: var(--radius-full);
-            background: rgba(99, 102, 241, 0.15);
-            color: #a5b4fc;
-            border: 1px solid rgba(99, 102, 241, 0.3);
+            border-radius: var(--radius-sm);
             text-transform: uppercase;
         }
 
-        /* Execution Terminal Box */
-        .terminal-box {
-            background: #060911;
-            border: 1px solid var(--border-subtle);
-            border-radius: var(--radius-lg);
+        /* TAB 5: Terminal Trace */
+        .terminal-container {
+            background-color: #0f172a;
+            color: #cbd5e1;
+            border-radius: var(--radius-md);
             padding: 1.5rem;
             font-family: 'JetBrains Mono', monospace;
             font-size: 0.825rem;
-            color: #94a3b8;
-            max-height: 600px;
+            max-height: 550px;
             overflow-y: auto;
             line-height: 1.6;
             white-space: pre-wrap;
         }
 
         /* Spinner */
-        .spinner {
+        .spinner-ring {
             width: 16px;
             height: 16px;
-            border: 2px solid rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.3);
             border-radius: 50%;
             border-top-color: #ffffff;
             animation: spin 0.6s linear infinite;
@@ -982,386 +829,290 @@
             to { transform: rotate(360deg); }
         }
 
-        /* Toast notification */
-        .toast-banner {
+        /* Toast */
+        .toast {
             position: fixed;
             bottom: 2rem;
             right: 2rem;
-            background: #1e293b;
+            background-color: var(--text-heading);
             color: #ffffff;
-            border: 1px solid var(--pass-emerald);
-            padding: 0.85rem 1.4rem;
+            padding: 0.75rem 1.25rem;
             border-radius: var(--radius-md);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-            display: flex;
-            align-items: center;
-            gap: 0.6rem;
+            box-shadow: var(--shadow-lg);
             font-size: 0.875rem;
             font-weight: 600;
-            z-index: 1000;
-            transform: translateY(100px);
+            z-index: 100;
             opacity: 0;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: translateY(20px);
+            transition: all 0.25s ease;
+            pointer-events: none;
         }
 
-        .toast-banner.show {
-            transform: translateY(0);
+        .toast.show {
             opacity: 1;
+            transform: translateY(0);
         }
     </style>
 </head>
 <body>
 
-    <!-- Top Navigation Header -->
-    <header class="topbar">
-        <div class="topbar-inner">
-            <div class="brand-group">
+    <!-- Header -->
+    <header class="site-header">
+        <div class="header-content">
+            <div class="brand">
                 <div class="brand-icon">CS</div>
-                <div class="brand-details">
+                <div class="brand-text">
                     <h1>
                         Curriculum Studio
-                        <span class="brand-tag">Agentic Content Engine</span>
+                        <span class="brand-tag">Autonomous GenAI Engine</span>
                     </h1>
                 </div>
             </div>
 
-            <div class="persona-badge">
-                <span class="pulse-dot"></span>
-                <span>Learner Persona: <strong>12th-Grade Graduate (Non-English Medium · Zero AI Background)</strong></span>
+            <div class="header-meta">
+                <div class="persona-pill">
+                    <span class="persona-dot"></span>
+                    <span>Target: <strong>12th-Grade Graduate (India, Non-English Medium)</strong></span>
+                </div>
             </div>
         </div>
     </header>
 
-    <!-- Visual Agentic Pipeline Tracker -->
-    <div class="pipeline-tracker">
-        <div class="pipeline-bar" id="pipeline-bar">
-            <div class="pipe-step completed" id="pipe-mem">
-                <span class="pipe-num">1</span>
-                <span>Institutional Memory</span>
-            </div>
-            <span class="pipe-arrow">→</span>
-            <div class="pipe-step completed" id="pipe-plan">
-                <span class="pipe-num">2</span>
-                <span>Curriculum Plan</span>
-            </div>
-            <span class="pipe-arrow">→</span>
-            <div class="pipe-step active" id="pipe-gen">
-                <span class="pipe-num">3</span>
-                <span>Generator Agent</span>
-            </div>
-            <span class="pipe-arrow">→</span>
-            <div class="pipe-step" id="pipe-eval">
-                <span class="pipe-num">4</span>
-                <span>2-Tier Evaluator</span>
-            </div>
-            <span class="pipe-arrow">→</span>
-            <div class="pipe-step" id="pipe-retry">
-                <span class="pipe-num">5</span>
-                <span>Self-Correction</span>
-            </div>
-            <span class="pipe-arrow">→</span>
-            <div class="pipe-step" id="pipe-ship">
-                <span class="pipe-num">6</span>
-                <span>Shipped Lesson</span>
-            </div>
-        </div>
-    </div>
+    <!-- Main Content Container -->
+    <main class="container">
 
-    <!-- Main Workspace Layout -->
-    <div class="layout-container">
-        <!-- Left: Workbench Control Deck -->
-        <aside>
-            <div class="card">
-                <div class="card-header">
-                    <div>
-                        <h2 class="card-title">Generation Deck</h2>
-                        <p class="card-subtitle">Configure autonomous agent loop</p>
-                    </div>
+        <!-- Top Control Card -->
+        <section class="control-card">
+            <div class="control-header">
+                <h2>Lesson Generator & Self-Evaluating Quality Loop</h2>
+                <p>Generates content, audits against 6 hard pass/fail checkpoints, and regenerates on failure.</p>
+            </div>
+
+            <div class="control-grid">
+                <div class="form-group">
+                    <label class="form-label" for="topic-input">Topic</label>
+                    <input type="text" id="topic-input" class="form-input" value="RAG (Retrieval-Augmented Generation)" placeholder="e.g. Introduction to RAG">
                 </div>
 
-                <div class="field">
-                    <label for="topic">Curriculum Topic</label>
-                    <input type="text" id="topic" value="RAG (Retrieval-Augmented Generation)">
-                    <div class="preset-group">
-                        <span class="preset-pill" onclick="setTopic('RAG (Retrieval-Augmented Generation)')">RAG (Submission)</span>
-                        <span class="preset-pill" onclick="setTopic('Vector Embeddings & Semantic Search')">Embeddings</span>
-                        <span class="preset-pill" onclick="setTopic('Prompt Engineering vs Fine-Tuning')">Fine-Tuning vs Prompts</span>
-                    </div>
-                    <span class="hint">Assumes learner starts from absolute zero.</span>
+                <div class="form-group">
+                    <label class="form-label" for="flaw-select">Evaluation Test Mode</label>
+                    <select id="flaw-select" class="form-select">
+                        <option value="none">Standard Baseline (Clean generation)</option>
+                        <option value="jargon_bomb" selected>Deliberate Flaw: Unexplained Graduate Jargon</option>
+                        <option value="hallucinated_facts">Deliberate Flaw: Model Retraining Claim</option>
+                        <option value="missing_analogy">Deliberate Flaw: Missing Everyday Analogy</option>
+                    </select>
                 </div>
 
-                <div class="field">
-                    <label>Evaluation Rigor Test Mode</label>
-                    <div class="flaw-selector">
-                        <div class="flaw-option" onclick="selectFlaw('none')">
-                            <input type="radio" name="flaw_mode" value="none" class="flaw-radio" id="flaw-none">
-                            <div>
-                                <div class="flaw-title">Standard Baseline</div>
-                                <div class="flaw-desc">Generate cleanly; pass 6 checkpoints on round 1.</div>
-                            </div>
-                        </div>
-
-                        <div class="flaw-option selected" onclick="selectFlaw('jargon_bomb')">
-                            <input type="radio" name="flaw_mode" value="jargon_bomb" class="flaw-radio" id="flaw-jargon" checked>
-                            <div>
-                                <div class="flaw-title">Deliberate Flaw: Graduate Jargon</div>
-                                <div class="flaw-desc">Injects HNSW tensors & manifold math; tests evaluator rejection & vocabulary recovery.</div>
-                            </div>
-                        </div>
-
-                        <div class="flaw-option" onclick="selectFlaw('hallucinated_facts')">
-                            <input type="radio" name="flaw_mode" value="hallucinated_facts" class="flaw-radio" id="flaw-halluc">
-                            <div>
-                                <div class="flaw-title">Deliberate Flaw: Retraining Hallucination</div>
-                                <div class="flaw-desc">Claims RAG updates model weights; tests grounding & technical accuracy checks.</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
-                    <div class="field">
-                        <label for="provider">Provider</label>
-                        <select id="provider">
-                            <option value="auto">Auto-Detect</option>
-                            <option value="mock">Deterministic Simulator</option>
-                            <option value="gemini">Google Gemini</option>
-                            <option value="openai">OpenAI / Groq</option>
-                        </select>
-                    </div>
-
-                    <div class="field">
-                        <label for="max-retries">Max Retries</label>
-                        <input type="number" id="max-retries" value="2" min="1" max="3">
-                    </div>
-                </div>
-
-                <button id="run-btn" class="btn btn-primary" onclick="startGeneration()">
-                    <span>Run Agentic Pipeline</span>
-                </button>
-
-                <button class="btn btn-secondary" onclick="resetStoredMemory()">
-                    <span>Reset Memory to Baseline</span>
-                </button>
-            </div>
-
-            <!-- Memory Evolution Snapshot -->
-            <div class="card" style="margin-top: 1.5rem;">
-                <div class="card-header">
-                    <div>
-                        <h2 class="card-title">Memory Bank</h2>
-                        <p class="card-subtitle">Cross-run self-evolution</p>
-                    </div>
-                    <span class="badge-pill pass" style="font-size:0.65rem;">Active</span>
-                </div>
-
-                <div class="metric-grid" id="memory-stats-grid">
-                    <div class="metric-card">
-                        <div class="metric-val" id="metric-runs">0</div>
-                        <div class="metric-lbl">Total Runs</div>
-                    </div>
-                    <div class="metric-card">
-                        <div class="metric-val" id="metric-rejections" style="color:var(--fail-rose);">0</div>
-                        <div class="metric-lbl">Rejections Fixed</div>
-                    </div>
-                    <div class="metric-card">
-                        <div class="metric-val" id="metric-rules" style="color:#818cf8;">0</div>
-                        <div class="metric-lbl">Active Rules</div>
-                    </div>
-                </div>
-            </div>
-        </aside>
-
-        <!-- Right: Editorial & Quality Audit Canvas -->
-        <main>
-            <!-- Tabs Navigation -->
-            <div class="tabs-header">
-                <div class="tab-nav">
-                    <button class="tab-btn active" onclick="switchTab('tab-rubric')">
-                        <span>Rubric Audit</span>
-                    </button>
-                    <button class="tab-btn" onclick="switchTab('tab-rejections')">
-                        <span>Rejection & Fix Log</span>
-                        <span class="badge-count" id="rejection-badge">0</span>
-                    </button>
-                    <button class="tab-btn" onclick="switchTab('tab-lesson')">
-                        <span>Approved Lesson</span>
-                    </button>
-                    <button class="tab-btn" onclick="switchTab('tab-memory')">
-                        <span>Evolved Directives</span>
-                    </button>
-                    <button class="tab-btn" onclick="switchTab('tab-trace')">
-                        <span>Execution Trace</span>
+                <div class="form-group">
+                    <button id="run-btn" class="btn-primary" onclick="runPipeline()">
+                        <span>Generate & Evaluate Lesson</span>
                     </button>
                 </div>
-
-                <button class="btn-ghost" onclick="exportLessonMarkdown()">
-                    <span>Download .md</span>
-                </button>
             </div>
 
-            <!-- TAB 1: Rubric Audit -->
-            <div id="tab-rubric" class="tab-pane active">
-                <div id="audit-hero" class="status-hero">
-                    <div>
-                        <div class="status-title">
-                            <span>Ready to Evaluate</span>
-                        </div>
-                        <p class="status-subtitle">
-                            The agent will draft the lesson, run static linting, and judge across 6 hard pass/fail checkpoints with zero partial credit.
-                        </p>
+            <div class="quick-chips">
+                <span>Quick Topics:</span>
+                <span class="chip" onclick="setTopic('RAG (Retrieval-Augmented Generation)')">Introduction to RAG (Submission)</span>
+                <span class="chip" onclick="setTopic('Vector Embeddings & Semantic Search')">Vector Embeddings</span>
+                <span class="chip" onclick="setTopic('Prompt Engineering vs Fine-Tuning')">Fine-Tuning vs Prompts</span>
+            </div>
+        </section>
+
+        <!-- Status Alert Banner -->
+        <section id="status-banner" class="status-alert ready">
+            <div class="status-info">
+                <div class="status-icon" id="status-icon">⚙️</div>
+                <div class="status-text">
+                    <h3 id="status-title">System Ready</h3>
+                    <p id="status-desc">Click "Generate & Evaluate Lesson" to run the full generate, evaluate (hard pass/fail), and retry loop.</p>
+                </div>
+            </div>
+
+            <div class="status-metrics" id="status-metrics" style="display:none;">
+                <div class="status-metric-box">
+                    <div class="metric-number" id="metric-rounds">1</div>
+                    <div class="metric-label">Rounds</div>
+                </div>
+                <div class="status-metric-box">
+                    <div class="metric-number" id="metric-rejections" style="color:var(--danger);">0</div>
+                    <div class="metric-label">Retries</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Navigation Tabs -->
+        <nav class="tab-bar">
+            <button class="tab-btn active" onclick="showTab('tab-lesson')">
+                <span>📄 Approved Lesson Content</span>
+            </button>
+            <button class="tab-btn" onclick="showTab('tab-rubric')">
+                <span>⚖️ Rubric Quality Audit (6 Checks)</span>
+            </button>
+            <button class="tab-btn" onclick="showTab('tab-rejections')">
+                <span>🔄 Rejection & Fix Log</span>
+                <span class="tab-badge" id="rejection-count-badge">0</span>
+            </button>
+            <button class="tab-btn" onclick="showTab('tab-memory')">
+                <span>🧠 Institutional Memory</span>
+            </button>
+            <button class="tab-btn" onclick="showTab('tab-trace')">
+                <span>💻 Terminal Logs</span>
+            </button>
+        </nav>
+
+        <!-- TAB 1: Approved Lesson Content -->
+        <section id="tab-lesson" class="tab-pane active">
+            <article class="lesson-article-card">
+                <div class="lesson-top-toolbar">
+                    <div class="lesson-meta">
+                        <strong>Target Audience:</strong> 12th-Grade Graduate (Non-English Medium) · Zero AI Background Required
                     </div>
-                </div>
-
-                <div class="checkpoint-grid" id="checkpoints-list">
-                    <!-- Populated dynamically -->
-                </div>
-            </div>
-
-            <!-- TAB 2: Rejections & Fixes -->
-            <div id="tab-rejections" class="tab-pane">
-                <div id="rejection-container">
-                    <div style="background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: 3rem; text-align: center; color: var(--text-muted);">
-                        No rejections recorded yet. Select a deliberate flaw and click <strong>Run Agentic Pipeline</strong> to watch the evaluator catch and correct an error!
-                    </div>
-                </div>
-            </div>
-
-            <!-- TAB 3: Approved Lesson Document -->
-            <div id="tab-lesson" class="tab-pane">
-                <div class="doc-canvas">
-                    <div class="doc-top-bar">
-                        <div>
-                            <span class="badge-pill pass" style="margin-bottom:0.4rem;">Quality Approved for Shipping</span>
-                            <div style="font-size:0.85rem; color:var(--text-muted);">Target: 12th-Grade Non-English Medium Graduate · Reading Time: 4 mins</div>
-                        </div>
-                        <button class="btn btn-secondary" style="width:auto; margin:0; padding:0.5rem 1rem;" onclick="copyLesson()">
-                            <span>Copy for Google Doc / Notion</span>
+                    <div class="lesson-actions">
+                        <button class="btn-secondary" onclick="copyLessonMarkdown()">
+                            <span>📋 Copy for Google Doc / Notion</span>
+                        </button>
+                        <button class="btn-secondary" onclick="downloadLessonMarkdown()">
+                            <span>⬇️ Download .md</span>
                         </button>
                     </div>
+                </div>
 
-                    <div id="lesson-prose" class="doc-prose">
-                        <div style="text-align: center; padding: 4rem 1rem; color: var(--text-muted);">
-                            The finalized, rubric-cleared lesson document will render here in article format once generated.
-                        </div>
+                <div id="lesson-content-body" class="prose-body">
+                    <div style="text-align: center; padding: 4rem 1rem; color: var(--text-muted);">
+                        The lesson content will render here once generation and rubric verification complete.
                     </div>
                 </div>
+            </article>
+        </section>
+
+        <!-- TAB 2: Rubric Checklist -->
+        <section id="tab-rubric" class="tab-pane">
+            <div id="rubric-checklist" class="rubric-grid">
+                <!-- Checkpoints populated dynamically -->
             </div>
+        </section>
 
-            <!-- TAB 4: Institutional Memory -->
-            <div id="tab-memory" class="tab-pane">
-                <div class="card">
-                    <div class="card-header">
-                        <div>
-                            <h2 class="card-title">Institutional Memory Bank</h2>
-                            <p class="card-subtitle">Synthesized from previous evaluator rejections to prevent repeating mistakes</p>
-                        </div>
-                        <span class="badge-pill pass">Persistent on Disk</span>
-                    </div>
-
-                    <div class="memory-rule-grid" id="memory-rules-container">
-                        <!-- Populated dynamically -->
-                    </div>
+        <!-- TAB 3: Rejection Log -->
+        <section id="tab-rejections" class="tab-pane">
+            <div id="rejection-content-area">
+                <div style="background-color: #ffffff; border: 1px solid var(--border-light); border-radius: var(--radius-md); padding: 3rem; text-align: center; color: var(--text-muted);">
+                    Zero rejections recorded in this session. When you run with a deliberate flaw, the auditor will catch it here and show the before/after retry diff.
                 </div>
             </div>
+        </section>
 
-            <!-- TAB 5: Execution Trace -->
-            <div id="tab-trace" class="tab-pane">
-                <pre class="terminal-box" id="trace-logs">// System idle. Click 'Run Agentic Pipeline' to view real-time state machine transitions...</pre>
+        <!-- TAB 4: Institutional Memory -->
+        <section id="tab-memory" class="tab-pane">
+            <div class="memory-layout">
+                <div class="memory-stats-card">
+                    <h3 style="font-size:1rem; font-weight:700; color:var(--text-heading); margin-bottom:1.25rem;">Memory Bank Stats</h3>
+                    <div class="stat-item">
+                        <div class="stat-num" id="stat-runs">0</div>
+                        <div class="stat-name">Runs Completed</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-num" id="stat-rejections" style="color:var(--danger);">0</div>
+                        <div class="stat-name">Rejections Corrected</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-num" id="stat-rules" style="color:var(--primary);">0</div>
+                        <div class="stat-name">Active Guardrails</div>
+                    </div>
+                    <button class="btn-secondary" style="width:100%; margin-top:1.5rem; justify-content:center;" onclick="resetMemory()">
+                        <span>Reset Memory</span>
+                    </button>
+                </div>
+
+                <div class="rule-list" id="memory-rules-list">
+                    <!-- Rules populated dynamically -->
+                </div>
             </div>
-        </main>
-    </div>
+        </section>
+
+        <!-- TAB 5: Terminal Logs -->
+        <section id="tab-trace" class="tab-pane">
+            <pre class="terminal-container" id="terminal-logs">// Execution trace logs will stream here...</pre>
+        </section>
+
+    </main>
 
     <!-- Toast Notification -->
-    <div class="toast-banner" id="toast">
-        <span>✔ Copied Markdown to Clipboard!</span>
-    </div>
+    <div id="toast" class="toast">✔ Copied to clipboard!</div>
 
     <script>
-        let currentFlaw = 'jargon_bomb';
-        let latestRunData = null;
+        let currentRunData = null;
 
-        function setTopic(text) {
-            document.getElementById('topic').value = text;
+        function setTopic(name) {
+            document.getElementById('topic-input').value = name;
         }
 
-        function selectFlaw(flaw) {
-            currentFlaw = flaw;
-            document.querySelectorAll('.flaw-option').forEach(el => el.classList.remove('selected'));
-            const radio = document.querySelector(`input[value="${flaw}"]`);
-            if (radio) {
-                radio.checked = true;
-                radio.closest('.flaw-option').classList.add('selected');
-            }
-        }
-
-        function switchTab(tabId) {
+        function showTab(tabId) {
             document.querySelectorAll('.tab-pane').forEach(el => el.classList.remove('active'));
             document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
             document.getElementById(tabId).classList.add('active');
             event.currentTarget.classList.add('active');
         }
 
-        function showToast(msg) {
+        function showToast(text) {
             const toast = document.getElementById('toast');
-            toast.innerText = msg;
+            toast.innerText = text;
             toast.classList.add('show');
-            setTimeout(() => toast.classList.remove('show'), 2500);
+            setTimeout(() => toast.classList.remove('show'), 2200);
         }
 
-        async function loadMemoryAnalytics() {
+        async function loadMemory() {
             try {
                 const res = await fetch('/api/memory');
                 const data = await res.json();
                 
-                document.getElementById('metric-runs').innerText = data.total_runs;
-                document.getElementById('metric-rejections').innerText = data.total_rejections_caught_and_corrected;
-                document.getElementById('metric-rules').innerText = data.active_guardrail_rules;
+                document.getElementById('stat-runs').innerText = data.total_runs;
+                document.getElementById('stat-rejections').innerText = data.total_rejections_caught_and_corrected;
+                document.getElementById('stat-rules').innerText = data.active_guardrail_rules;
 
-                const container = document.getElementById('memory-rules-container');
+                const list = document.getElementById('memory-rules-list');
                 if (data.top_rules && data.top_rules.length > 0) {
-                    container.innerHTML = data.top_rules.map(r => `
-                        <div class="memory-rule-card">
-                            <div class="rule-top">
-                                <span class="rule-badge">${r.category} · ${r.rule_id}</span>
-                                <span style="font-size:0.75rem; color:var(--text-muted); font-family:'JetBrains Mono';">Enforced in ${r.occurrence_count} runs</span>
+                    list.innerHTML = data.top_rules.map(r => `
+                        <div class="rule-card">
+                            <div class="rule-card-top">
+                                <span class="rule-category-badge">${r.category}</span>
+                                <span style="font-size:0.75rem; color:var(--text-muted); font-family:'JetBrains Mono';">Enforced in ${r.occurrence_count} run(s)</span>
                             </div>
-                            <div style="font-size:0.875rem; color:var(--text-primary); font-weight:500; margin-bottom:0.4rem;">
+                            <div style="font-size:0.9rem; font-weight:600; color:var(--text-heading); margin-bottom:0.3rem;">
                                 ${r.directive}
                             </div>
-                            <div style="font-size:0.75rem; color:var(--text-muted); font-style:italic;">
+                            <div style="font-size:0.775rem; color:var(--text-muted); font-style:italic;">
                                 Source: "${r.source_failure}"
                             </div>
                         </div>
                     `).join('');
                 }
             } catch (err) {
-                console.error("Failed to load memory analytics:", err);
+                console.error("Failed to fetch memory:", err);
             }
         }
 
-        async function resetStoredMemory() {
-            if (!confirm("Reset all institutional memory rules back to original baseline?")) return;
-            try {
-                await fetch('/api/reset-memory', { method: 'POST' });
-                showToast("Institutional memory reset to baseline.");
-                loadMemoryAnalytics();
-            } catch (err) {
-                alert("Error resetting memory: " + err);
-            }
+        async function resetMemory() {
+            if (!confirm("Reset memory to initial seed guardrails?")) return;
+            await fetch('/api/reset-memory', { method: 'POST' });
+            showToast("Institutional memory reset.");
+            loadMemory();
         }
 
-        async function startGeneration() {
+        async function runPipeline() {
             const btn = document.getElementById('run-btn');
-            const topic = document.getElementById('topic').value.trim();
-            const max_retries = parseInt(document.getElementById('max-retries').value) || 2;
-            const provider = document.getElementById('provider').value;
+            const topic = document.getElementById('topic-input').value.trim();
+            const flaw = document.getElementById('flaw-select').value;
 
             btn.disabled = true;
-            btn.innerHTML = `<span class="spinner"></span> <span>Running Workflow Loop...</span>`;
+            btn.innerHTML = `<span class="spinner-ring"></span> <span>Running Workflow...</span>`;
 
-            // Animate pipeline tracker
-            document.getElementById('pipe-eval').classList.add('active');
+            // Update banner to running state
+            const banner = document.getElementById('status-banner');
+            banner.className = 'status-alert ready';
+            document.getElementById('status-icon').innerText = '⏳';
+            document.getElementById('status-title').innerText = 'Executing Agentic Workflow';
+            document.getElementById('status-desc').innerText = 'Generating draft, applying linter, evaluating against 6 checkpoints...';
 
             try {
                 const res = await fetch('/api/run', {
@@ -1369,112 +1120,94 @@
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
                         topic: topic,
-                        flaw_injection: currentFlaw,
-                        max_retries: max_retries,
-                        provider: provider
+                        flaw_injection: flaw,
+                        max_retries: 2,
+                        provider: 'auto'
                     })
                 });
 
                 const data = await res.json();
-                latestRunData = data;
-                renderRunResults(data);
-                loadMemoryAnalytics();
+                currentRunData = data;
+                renderOutputs(data);
+                loadMemory();
             } catch (err) {
-                alert("Execution error: " + err);
+                alert("Error during execution: " + err);
             } finally {
                 btn.disabled = false;
-                btn.innerHTML = `<span>Run Agentic Pipeline</span>`;
-                document.getElementById('pipe-eval').classList.remove('active');
-                document.getElementById('pipe-ship').classList.add('completed');
+                btn.innerHTML = `<span>Generate & Evaluate Lesson</span>`;
             }
         }
 
-        function renderRunResults(data) {
-            // Logs tab
-            document.getElementById('trace-logs').textContent = JSON.stringify(data.execution_logs, null, 2);
+        function renderOutputs(data) {
+            // Logs
+            document.getElementById('terminal-logs').textContent = JSON.stringify(data.execution_logs, null, 2);
 
-            // Rejection badge
+            // Rejections
             const rejections = data.rejection_history || [];
-            document.getElementById('rejection-badge').innerText = rejections.length;
+            document.getElementById('rejection-count-badge').innerText = rejections.length;
 
-            // Hero Status Banner
+            // Status Banner
+            const banner = document.getElementById('status-banner');
             const isPassed = data.status === "PASSED";
-            const hero = document.getElementById('audit-hero');
-            hero.className = `status-hero ${isPassed ? 'approved' : 'rejected'}`;
-            hero.innerHTML = `
-                <div>
-                    <div class="status-title">
-                        <span>${isPassed ? '✔ Lesson Approved for Shipping' : '✖ Quality Threshold Not Met'}</span>
-                    </div>
-                    <p class="status-subtitle">
-                        ${data.evaluation_result ? data.evaluation_result.summary : 'Evaluation complete.'}
-                    </p>
-                    <div class="status-meta">
-                        Execution Cycle: ${data.iteration + 1} generation attempt(s) | ${rejections.length} autonomous retry correction(s) applied.
-                    </div>
-                </div>
-                <div>
-                    <span class="badge-pill ${isPassed ? 'pass' : 'fail'}" style="font-size:0.85rem; padding:0.4rem 0.9rem;">
-                        ${isPassed ? '6 / 6 PASSED' : 'REJECTED'}
-                    </span>
-                </div>
-            `;
+            banner.className = `status-alert ${isPassed ? 'passed' : 'failed'}`;
+            document.getElementById('status-icon').innerText = isPassed ? '✅' : '❌';
+            document.getElementById('status-title').innerText = isPassed ? 'Lesson Approved for Shipping' : 'Evaluation Failed';
+            document.getElementById('status-desc').innerText = data.evaluation_result ? data.evaluation_result.summary : 'Complete.';
 
-            // Checkpoints list
-            const checkList = document.getElementById('checkpoints-list');
+            document.getElementById('status-metrics').style.display = 'flex';
+            document.getElementById('metric-rounds').innerText = data.iteration + 1;
+            document.getElementById('metric-rejections').innerText = rejections.length;
+
+            // Checkpoints tab
+            const checkContainer = document.getElementById('rubric-checklist');
             if (data.evaluation_result && data.evaluation_result.checkpoints) {
-                checkList.innerHTML = data.evaluation_result.checkpoints.map(cp => `
-                    <div class="checkpoint-card">
-                        <div class="checkpoint-top">
-                            <div class="checkpoint-title-group">
-                                <span class="checkpoint-id">${cp.checkpoint_id}</span>
-                                <span class="checkpoint-name">${cp.dimension_name}</span>
+                checkContainer.innerHTML = data.evaluation_result.checkpoints.map(cp => `
+                    <div class="rubric-card">
+                        <div class="rubric-card-top">
+                            <div class="rubric-title-wrap">
+                                <span class="rubric-id">${cp.checkpoint_id}</span>
+                                <span class="rubric-title">${cp.dimension_name}</span>
                             </div>
-                            <span class="badge-pill ${cp.passed ? 'pass' : 'fail'}">${cp.passed ? 'PASS' : 'FAIL'}</span>
+                            <span class="${cp.passed ? 'pass-tag' : 'fail-tag'}">${cp.passed ? 'PASS' : 'FAIL'}</span>
                         </div>
-                        <div class="checkpoint-body">${cp.critique}</div>
-                        ${cp.snippet_citation ? `<div class="citation-box">Citation: "${cp.snippet_citation}"</div>` : ''}
-                        ${!cp.passed && cp.actionable_remedy ? `<div class="remedy-box">Actionable Remedy: ${cp.actionable_remedy}</div>` : ''}
+                        <div class="rubric-critique">${cp.critique}</div>
+                        ${cp.snippet_citation ? `<div class="rubric-snippet"><strong>Snippet:</strong> "${cp.snippet_citation}"</div>` : ''}
+                        ${!cp.passed && cp.actionable_remedy ? `<div class="rubric-remedy"><strong>Required Remedy:</strong> ${cp.actionable_remedy}</div>` : ''}
                     </div>
                 `).join('');
             }
 
-            // Rejection log view
-            const rejContainer = document.getElementById('rejection-container');
+            // Rejection Diff tab
+            const rejArea = document.getElementById('rejection-content-area');
             if (rejections.length === 0) {
-                rejContainer.innerHTML = `
-                    <div style="background: var(--bg-card); border: 1px solid var(--pass-border); border-radius: var(--radius-lg); padding: 3rem; text-align: center; color: var(--pass-emerald);">
-                        ✔ Zero rejections occurred! The initial draft cleared all 6 hard checkpoints on the first try.
+                rejArea.innerHTML = `
+                    <div style="background-color: var(--success-bg); border: 1px solid var(--success-border); border-radius: var(--radius-md); padding: 3rem; text-align: center; color: var(--success-text);">
+                        ✔ Draft passed all 6 checkpoints on the first try! Zero rejections occurred.
                     </div>
                 `;
             } else {
-                rejContainer.innerHTML = rejections.map(r => `
-                    <div class="rejection-item">
-                        <div class="rejection-top">
-                            <div>
-                                <span class="badge-pill fail">Round ${r.iteration + 1} Rejection</span>
-                                <span style="font-size:0.8rem; color:var(--text-muted); margin-left:0.5rem; font-family:'JetBrains Mono';">${r.timestamp}</span>
-                            </div>
-                            <span style="font-size:0.8rem; color:var(--fail-rose); font-weight:700;">${r.failed_checkpoints.length} Checkpoints Failed</span>
+                rejArea.innerHTML = rejections.map(r => `
+                    <div class="rejection-card">
+                        <div class="rejection-header">
+                            <span class="rejection-round-title">Round ${r.iteration + 1} Quality Rejection</span>
+                            <span style="font-size:0.8rem; color:var(--text-muted); font-family:'JetBrains Mono';">${r.timestamp}</span>
                         </div>
 
-                        <div style="display:flex; gap:0.4rem; flex-wrap:wrap; margin-bottom:1rem;">
-                            ${r.failed_checkpoints.map(f => `<span class="badge-pill fail">${f}</span>`).join('')}
+                        <div style="margin-bottom:0.75rem;">
+                            <strong style="font-size:0.8rem; text-transform:uppercase; color:var(--text-muted);">Failed Checkpoints:</strong>
+                            <div style="display:flex; gap:0.4rem; flex-wrap:wrap; margin-top:0.3rem;">
+                                ${r.failed_checkpoints.map(f => `<span class="fail-tag">${f}</span>`).join('')}
+                            </div>
                         </div>
 
-                        <div class="diff-grid">
-                            <div class="diff-panel">
-                                <div class="diff-title" style="color:var(--fail-rose);">
-                                    <span>❌ What Failed (Rejected Text Excerpt)</span>
-                                </div>
-                                <div class="diff-snippet">${r.rejected_draft_snippet || r.root_cause_analysis}</div>
+                        <div class="rejection-diff-columns">
+                            <div class="diff-column-card">
+                                <div class="diff-column-title" style="color:var(--danger-text);">❌ 1. What Failed (Rejected Text Excerpt)</div>
+                                <div class="diff-code-view">${r.rejected_draft_snippet || r.root_cause_analysis}</div>
                             </div>
-
-                            <div class="diff-panel">
-                                <div class="diff-title" style="color:var(--warn-amber);">
-                                    <span>⚡ What Was Changed on Retry</span>
-                                </div>
-                                <div class="diff-snippet">${r.feedback_injected_to_prompt}</div>
+                            <div class="diff-column-card">
+                                <div class="diff-column-title" style="color:var(--warning-text);">⚡ 2. What Changed on Retry (Remedial Action)</div>
+                                <div class="diff-code-view">${r.feedback_injected_to_prompt}</div>
                             </div>
                         </div>
                     </div>
@@ -1483,18 +1216,17 @@
 
             // Lesson document render
             if (data.current_draft) {
-                const proseEl = document.getElementById('lesson-prose');
+                const body = document.getElementById('lesson-content-body');
                 if (window.marked) {
-                    proseEl.innerHTML = marked.parse(data.current_draft.full_markdown);
+                    body.innerHTML = marked.parse(data.current_draft.full_markdown);
                 } else {
-                    proseEl.innerHTML = fallbackMarkdown(data.current_draft.full_markdown);
+                    body.innerHTML = simpleMarkdown(data.current_draft.full_markdown);
                 }
-                attachInteractiveQuiz();
             }
         }
 
-        function fallbackMarkdown(md) {
-            return md
+        function simpleMarkdown(text) {
+            return text
                 .replace(/^# (.*$)/gim, '<h1>$1</h1>')
                 .replace(/^## (.*$)/gim, '<h2>$1</h2>')
                 .replace(/^### (.*$)/gim, '<h3>$1</h3>')
@@ -1506,32 +1238,21 @@
                 .replace(/\n/gim, '<br>');
         }
 
-        function attachInteractiveQuiz() {
-            // Enhances any quiz option elements in the rendered lesson to be interactive
-            const paragraphs = document.querySelectorAll('#lesson-prose p, #lesson-prose li');
-            paragraphs.forEach(p => {
-                if (p.textContent.includes('Question 1:') || p.textContent.includes('Question 2:')) {
-                    p.style.fontWeight = '700';
-                    p.style.color = '#818cf8';
-                }
-            });
-        }
-
-        function copyLesson() {
-            if (!latestRunData || !latestRunData.current_draft) {
-                alert("Please run the generation pipeline first!");
+        function copyLessonMarkdown() {
+            if (!currentRunData || !currentRunData.current_draft) {
+                alert("Please run generation first!");
                 return;
             }
-            navigator.clipboard.writeText(latestRunData.current_draft.full_markdown);
-            showToast("✔ Copied Markdown to Clipboard!");
+            navigator.clipboard.writeText(currentRunData.current_draft.full_markdown);
+            showToast("✔ Copied Markdown to clipboard!");
         }
 
-        function exportLessonMarkdown() {
-            if (!latestRunData || !latestRunData.current_draft) {
-                alert("Please run the generation pipeline first!");
+        function downloadLessonMarkdown() {
+            if (!currentRunData || !currentRunData.current_draft) {
+                alert("Please run generation first!");
                 return;
             }
-            const blob = new Blob([latestRunData.current_draft.full_markdown], { type: 'text/markdown' });
+            const blob = new Blob([currentRunData.current_draft.full_markdown], { type: 'text/markdown' });
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
@@ -1541,8 +1262,19 @@
             showToast("✔ Downloaded FINAL_LESSON_RAG.md");
         }
 
-        // Initialize state
-        loadMemoryAnalytics();
+        // Initial setup
+        loadMemory();
+
+        // Pre-populate with approved lesson and checkpoints on first load
+        window.addEventListener('DOMContentLoaded', () => {
+            fetch('/api/initial-state')
+                .then(r => r.json())
+                .then(data => {
+                    currentRunData = data;
+                    renderOutputs(data);
+                })
+                .catch(err => console.log("Initial state load note:", err));
+        });
     </script>
 </body>
 </html>

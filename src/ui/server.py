@@ -67,6 +67,48 @@ async def run_workflow_api(req: RunWorkflowRequest):
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
+@app.get("/api/initial-state")
+async def get_initial_state():
+    lesson_path = os.path.join(
+        os.path.dirname(os.path.dirname(os.path.dirname(__file__))),
+        "docs",
+        "FINAL_LESSON_RAG.md"
+    )
+    content = ""
+    if os.path.exists(lesson_path):
+        with open(lesson_path, "r", encoding="utf-8") as f:
+            content = f.read()
+
+    from src.providers.llm_provider import MockLLMProvider
+    from src.evaluators.rubric_evaluator import RubricEvaluator
+    from src.models import LessonDraft, TargetAudience
+
+    provider = MockLLMProvider(simulate_flaw_on_first_try=False)
+    evaluator = RubricEvaluator(provider)
+    draft = LessonDraft(
+        topic="RAG (Retrieval-Augmented Generation)",
+        title="Supercharge AI with RAG: The 'Open-Book Exam' Secret for Computers",
+        hook="Imagine you have an important exam tomorrow...",
+        everyday_analogy="Think of an Open-Book Exam vs a Closed-Book Exam...",
+        problem_statement="Why do we desperately need RAG in India's growing AI industry...",
+        how_it_works="RAG solves this in 3 simple English steps: Retrieve, Augment, Generate...",
+        mental_model_diagram="[Student Question] -> [Step 1: RETRIEVAL] -> [Step 2: AUGMENTATION] -> [Step 3: GENERATION]",
+        concept_check_quiz="Question: A college builds a WhatsApp chatbot for admissions...",
+        summary_and_next_steps="Key Takeaways to Remember...",
+        full_markdown=content
+    )
+    eval_res = evaluator.evaluate(draft, TargetAudience())
+
+    return {
+        "status": "PASSED",
+        "topic": "RAG (Retrieval-Augmented Generation)",
+        "iteration": 1,
+        "flaw_injection": "none",
+        "evaluation_result": eval_res.model_dump(),
+        "current_draft": draft.model_dump(),
+        "rejection_history": []
+    }
+
 @app.get("/api/memory")
 async def get_memory_api():
     memory = InstitutionalMemory()
