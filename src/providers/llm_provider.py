@@ -4,11 +4,55 @@ LLM Provider Abstraction layer supporting Gemini, OpenAI/Groq, and a High-Fideli
 
 import os
 import json
+import re
 import logging
 from abc import ABC, abstractmethod
 from typing import Dict, Any, Optional
 
 logger = logging.getLogger(__name__)
+
+
+def extract_json_payload(text: str) -> Dict[str, Any]:
+    """
+    Robust JSON extractor from LLM responses.
+    Handles raw JSON, markdown-fenced code blocks (```json ... ```),
+    and responses with outer conversational text without breaking on
+    nested code fences or diagrams inside string fields.
+    """
+    clean = text.strip()
+    # 1. Direct parse
+    try:
+        return json.loads(clean)
+    except Exception:
+        pass
+
+    # 2. Markdown code fences: ```json ... ``` or ``` ... ```
+    match = re.search(r"^```(?:json)?\s*\n([\s\S]*?)\n\s*```\s*$", clean)
+    if match:
+        try:
+            return json.loads(match.group(1).strip())
+        except Exception:
+            pass
+
+    # 3. Outer bracket extraction (first { to last })
+    start = clean.find("{")
+    end = clean.rfind("}")
+    if start != -1 and end != -1 and end > start:
+        try:
+            return json.loads(clean[start:end+1])
+        except Exception:
+            pass
+
+    # 4. Strip leading/trailing backticks and retry
+    stripped = re.sub(r"^```(?:json)?\s*", "", clean)
+    stripped = re.sub(r"\s*```$", "", stripped)
+    try:
+        return json.loads(stripped.strip())
+    except Exception:
+        pass
+
+    logger.warning(f"Could not parse JSON payload from response: {clean[:150]}")
+    return {"raw": text}
 
 class BaseLLMProvider(ABC):
     @abstractmethod
@@ -41,17 +85,7 @@ class MockLLMProvider(BaseLLMProvider):
     def generate_json(self, prompt: str, system_prompt: Optional[str] = None) -> Dict[str, Any]:
         self.call_count += 1
         text = self._craft_mock_response(prompt)
-        # Attempt to parse json from text
-        try:
-            # Extract json if enclosed in markdown blocks
-            clean_text = text.strip()
-            if "```json" in clean_text:
-                clean_text = clean_text.split("```json")[1].split("```")[0].strip()
-            elif "```" in clean_text:
-                clean_text = clean_text.split("```")[1].split("```")[0].strip()
-            return json.loads(clean_text)
-        except Exception:
-            return {"raw": text}
+        return extract_json_payload(text)
 
     def _craft_mock_response(self, prompt: str) -> str:
         # Check if this is an evaluation prompt
@@ -128,13 +162,13 @@ class MockLLMProvider(BaseLLMProvider):
         return json.dumps({
             "topic": "RAG (Retrieval-Augmented Generation)",
             "title": "Supercharge AI with RAG: The 'Open-Book Exam' Secret for Computers",
-            "hook": "Imagine you have an important exam tomorrow. If the teacher says, 'You cannot bring any books, answer only from your memory!' that is scary, right? You might forget dates or confuse formulas. But what if the teacher says, 'You can keep your textbook on the desk. First search the page, read the exact lines, and then write your answer!' Suddenly, you will not guess or make silly mistakes. This simple trick is called RAG in the AI world!",
-            "everyday_analogy": "Think of an Open-Book Exam vs a Closed-Book Exam.\n- A normal AI like ChatGPT without RAG is like a student writing a **Closed-Book Exam**. It has to remember everything from its past training. If you ask about something new or private (like your college fee receipt), it has to guess or say 'I don't know'.\n- An AI with **RAG** is like that same smart student writing an **Open-Book Exam**. It has a library desk in front of it. Before answering your question, it walks to the bookshelf, finds the exact 2 pages with the answer, reads them carefully, and writes a perfect, truthful answer for you!",
-            "problem_statement": "Why do we desperately need RAG in India's growing AI industry?\n1. **AI Hallucinations (Confidently Making Up False Facts):** When an AI doesn't know an answer, it doesn't stay quiet; it often creates fake stories that sound real.\n2. **Outdated Knowledge:** An AI trained in 2024 does not know about today's cricket match score or today's government job circular.\n3. **Private Data Privacy:** A hospital or bank cannot send their secret customer records to train a huge global AI model from scratch. It is too risky and costs crores of rupees!",
-            "how_it_works": "RAG solves this in 3 simple English steps that anyone can remember:\n\n1. **R stands for RETRIEVAL (Search & Fetch):**\n   When you type a question (e.g., 'What is the last date for JEE Mains application?'), the system does NOT ask the AI to guess from memory. Instead, it instantly acts like a smart librarian: it scans your documents, notes, or website to find the exact 2 or 3 sentences that contain the answer.\n\n2. **A stands for AUGMENTATION (Add Reference Notes):**\n   'Augment' simply means 'to add or enrich'. The system takes your original question and staples the fresh facts found in Step 1 right on top of it. It creates a message like: *'Hey AI, here is the official government notice: [JEE registration ends on Nov 30]. Now answer the student question using ONLY this notice.'*\n\n3. **G stands for GENERATION (Polite Clear Answer):**\n   Now the AI reads the clean notes and writes a warm, fluent answer in simple English. It doesn't need to guess, because the verified truth is right in front of its eyes!",
+            "hook": "Imagine you have an important exam tomorrow. If the teacher says, 'You cannot bring any books, answer only from your memory!' that is scary, right? You might forget dates or confuse formulas. But what if the teacher says, 'You can keep your textbook on the desk. First search the page, read the exact lines, and then write your answer!' Suddenly, you will not guess or make silly mistakes. This simple trick is called RAG in the AI world! If you want to build high-paying AI applications in India today, RAG is the #1 tool you must master.",
+            "everyday_analogy": "Let us understand RAG with two simple Indian everyday examples:\n\n1. **The Open-Book Exam vs Closed-Book Exam:**\n   - A normal AI like ChatGPT without RAG is like a student writing a **Closed-Book Exam**. It has to remember everything from its past training. If you ask about something new or private (like your college fee receipt), it has to guess or say 'I don't know'.\n   - An AI with **RAG** is like that same smart student writing an **Open-Book Exam**. It has a library desk in front of it. Before answering your question, it walks to the bookshelf, finds the exact 2 pages with the answer, reads them carefully, and writes a perfect, truthful answer for you!\n\n2. **The Kirana Store Khata (Ledger) Book:**\n   - Does your local neighborhood grocery store uncle try to memorize the exact pending balance of all 500 customers in his head? Of course not! When you ask, 'Uncle, how much do I owe you?', he opens his **Khata Book** (ledger), turns to your page, reads the verified entry, and tells you the exact amount. That Khata Book is RAG for the shopkeeper!",
+            "problem_statement": "Why do companies in India desperately need RAG for their AI systems?\n\n1. **AI Hallucinations (Confidently Making Up False Stories):** When a normal AI does not know an answer, it does not keep quiet. It often invents believable lies with complete confidence. In a hospital, bank, or exam counseling portal, a wrong answer can ruin someone's life.\n2. **Outdated Knowledge:** A large AI model trained in 2024 does not know about today's cricket match score, current train delays, or today's government job circular.\n3. **Private Data Privacy & Enormous Cost:** A hospital or Indian bank cannot send secret customer bank statements to train a gigantic global model. Training a model costs crores of rupees and months of computer time. RAG lets you connect private documents in 5 minutes without retraining!",
+            "how_it_works": "RAG solves this in 3 simple English steps that anyone can remember:\n\n1. **R stands for RETRIEVAL (Search & Fetch):**\n   When you type a question (e.g., 'What is the last date for JEE Mains application?'), the system does NOT ask the AI to guess from memory. Instead, it instantly acts like a smart librarian: it scans your documents, notes, or website to find the exact 2 or 3 sentences that contain the answer.\n\n2. **A stands for AUGMENTATION (Add Reference Notes):**\n   'Augment' simply means 'to add or enrich'. The system takes your original question and staples the fresh facts found in Step 1 right on top of it. It creates a message like: *'Hey AI, here is the official government notice: [JEE registration ends on Nov 30]. Now answer the student question using ONLY this notice.'*\n\n3. **G stands for GENERATION (Polite Clear Answer):**\n   Now the AI reads the clean notes and writes a warm, fluent answer in simple English. It doesn't need to guess, because the verified truth is right in front of its eyes!\n\n*(Important Fact to Remember: RAG never retrains the big AI model or changes its internal weights. The AI remains frozen; you are simply handing it open notes before it speaks!)*",
             "mental_model_diagram": "```\n[Student Question] ──────────┐\n                            ▼\n               [Step 1: RETRIEVAL]\n               Librarian searches your PDF/Notes\n               Extracts: \"Exact Proof Sentences\"\n                            │\n                            ▼\n               [Step 2: AUGMENTATION]\n               Staple Question + Proof Sentences together\n                            │\n                            ▼\n               [Step 3: GENERATION]\n               AI writes clean, 100% truthful answer!\n```",
-            "concept_check_quiz": "Let's check your understanding with a quick 1-minute question!\n\n**Question:** A college builds a WhatsApp chatbot for new 12th-pass admissions. When a student asks, 'What is the hostel mess fee for 2026?', what will a RAG system do?\n\nA) Retrain the entire AI model overnight with new weights.\nB) First search the 2026 college fee PDF, attach the fee paragraph to the prompt, and then let the AI write the answer.\nC) Make the AI guess based on fees from other colleges in America.\n\n**Correct Answer: B**\n*Explanation:* Perfect! RAG never retrains the big AI model. It simply fetches the exact hostel fee paragraph from the college PDF (Retrieval) and hands it to the AI to write a helpful reply (Augment + Generate).",
-            "summary_and_next_steps": "Key Takeaways to Remember:\n1. RAG = Retrieval (Search) + Augmentation (Add Notes) + Generation (Write Answer).\n2. It turns a risky closed-book AI into a reliable open-book assistant.\n3. It stops fake answers (hallucinations) without spending millions of rupees on retraining.\n\n**Next Step in Your AI Journey:** Next, we will see how computers convert words into 'Search Numbers' (called Embeddings) to find pages in less than a second!"
+            "concept_check_quiz": "Let us check your understanding with 2 quick scenario questions!\n\n**Question 1:** A college builds a WhatsApp chatbot for new 12th-pass admissions. When a student asks, 'What is the hostel mess fee for 2026?', what will a RAG system do?\n- A) Retrain the entire AI model overnight with new weights.\n- B) First search the 2026 college fee PDF, attach the fee paragraph to the prompt, and then let the AI write the answer.\n- C) Make the AI guess based on fees from other colleges in America.\n\n**Correct Answer: B**\n*Explanation:* Perfect! RAG never retrains the big AI model. It simply fetches the exact hostel fee paragraph from the college PDF (Retrieval) and hands it to the AI to write a helpful reply (Augment + Generate).\n\n---\n\n**Question 2:** Why is RAG like an 'Open-Book Exam' rather than a 'Closed-Book Exam'?\n- A) Because the AI must memorize every textbook in the world before taking the test.\n- B) Because the AI is given the exact reference text to read right before answering.\n- C) Because RAG turns off the computer when the exam starts.\n\n**Correct Answer: B**\n*Explanation:* In an open-book exam, you do not need to memorize every line. You look up the relevant page when a question is asked, just like RAG retrieves relevant facts before generating the answer.",
+            "summary_and_next_steps": "### 📌 Key Takeaways to Remember:\n1. **RAG = Retrieval (Search) + Augmentation (Add Notes) + Generation (Write Answer).**\n2. It turns a risky closed-book AI into a reliable open-book assistant.\n3. It stops fake answers (hallucinations) without spending millions of rupees on retraining.\n4. It protects private company data by keeping files on your own server.\n\n### 📘 5 Essential AI Terms You Mastered Today:\n- **Prompt:** The question or message you type to the AI.\n- **Context:** The reference notes attached alongside your question.\n- **Retrieval:** Searching and fetching relevant pieces of information.\n- **Grounding:** Tying an AI's response to verified facts rather than guesses.\n- **Hallucination:** When an AI creates confident but completely false statements.\n\n🚀 **Next Step in Your AI Journey:** Next, we will explore how computers convert human words into 'Search Numbers' (called **Embeddings**) so a search engine can find the right page out of 10,000 documents in less than a second!"
         }, indent=2)
 
     def _mock_evaluation(self, prompt: str) -> str:
@@ -371,12 +405,7 @@ class GeminiProvider(BaseLLMProvider):
             system_prompt=system_prompt,
             temperature=0.2
         )
-        clean_text = text.strip()
-        if "```json" in clean_text:
-            clean_text = clean_text.split("```json")[1].split("```")[0].strip()
-        elif "```" in clean_text:
-            clean_text = clean_text.split("```")[1].split("```")[0].strip()
-        return json.loads(clean_text)
+        return extract_json_payload(text)
 
 
 class OpenAIProvider(BaseLLMProvider):
@@ -418,12 +447,7 @@ class OpenAIProvider(BaseLLMProvider):
             system_prompt=system_prompt,
             temperature=0.2
         )
-        clean_text = text.strip()
-        if "```json" in clean_text:
-            clean_text = clean_text.split("```json")[1].split("```")[0].strip()
-        elif "```" in clean_text:
-            clean_text = clean_text.split("```")[1].split("```")[0].strip()
-        return json.loads(clean_text)
+        return extract_json_payload(text)
 
 
 def get_llm_provider(

@@ -39,6 +39,8 @@ class RejectionRecord(BaseModel):
     root_cause_analysis: str
     feedback_injected_to_prompt: str
     remedy_applied: str
+    rejected_draft_title: Optional[str] = None
+    rejected_draft_snippet: Optional[str] = None
 
 
 class LessonDraft(BaseModel):

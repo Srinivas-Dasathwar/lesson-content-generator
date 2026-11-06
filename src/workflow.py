@@ -137,12 +137,16 @@ class LessonGeneratorWorkflow:
                 root_causes = "\n".join([f"- [{cp.checkpoint_id}] {cp.critique}" for cp in eval_result.checkpoints if not cp.passed])
                 remedies = "\n".join([f"- [{cp.checkpoint_id}] {cp.actionable_remedy or 'Revise as instructed'}" for cp in eval_result.checkpoints if not cp.passed])
 
+                draft_sample = f"Title: {draft.title}\n\nHook:\n{draft.hook}\n\nEveryday Analogy:\n{draft.everyday_analogy}\n\nHow It Works:\n{draft.how_it_works}"
+
                 rejection = RejectionRecord(
                     iteration=state.iteration,
                     failed_checkpoints=failed_cps,
                     root_cause_analysis=root_causes,
                     feedback_injected_to_prompt=f"Fix the following rubric failures:\n{root_causes}\n\nRequired Remedies:\n{remedies}",
-                    remedy_applied=remedies
+                    remedy_applied=remedies,
+                    rejected_draft_title=draft.title,
+                    rejected_draft_snippet=draft_sample
                 )
                 state.rejection_history.append(rejection)
 
