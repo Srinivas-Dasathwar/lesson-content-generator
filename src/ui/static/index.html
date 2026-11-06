@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NxtWave Content Systems | Self-Evaluating Lesson Generator</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0a0e17;
+            --bg-secondary: #121826;
+            --bg-card: #182234;
+            --border-color: #243048;
+            --text-primary: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --accent-primary: #4f46e5;
+            --accent-hover: #4338ca;
+            --accent-light: #818cf8;
+            --accent-glow: rgba(79, 70, 229, 0.25);
+            --success: #10b981;
+            --success-bg: rgba(16, 185, 129, 0.12);
+            --danger: #ef4444;
+            --danger-bg: rgba(239, 68, 68, 0.12);
+            --warning: #f59e0b;
+            --warning-bg: rgba(245, 158, 11, 0.12);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        header {
+            background-color: var(--bg-secondary);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1.25rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #4f46e5, #06b6d4);
+            color: white;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 0.2rem 0.6rem;
+            border-radius: 9999px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.25rem;
+        }
+
+        .title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: white;
+        }
+
+        .subtitle {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .container {
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: 340px 1fr;
+            gap: 2rem;
+        }
+
+        @media (max-width: 1024px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .card {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.5rem;
+        }
+
+        .card-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        label {
+            display: block;
+            font-size: 0.825rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: 0.4rem;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 0.7rem 0.85rem;
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-size: 0.9rem;
+            font-family: inherit;
+            transition: all 0.2s;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--accent-light);
+            box-shadow: 0 0 0 3px var(--accent-glow);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.25rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+            width: 100%;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #4f46e5, #6366f1);
+            color: white;
+            box-shadow: 0 4px 14px var(--accent-glow);
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            background: linear-gradient(135deg, #4338ca, #4f46e5);
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background-color: var(--bg-card);
+            color: var(--text-secondary);
+            border: 1px solid var(--border-color);
+            margin-top: 0.5rem;
+        }
+
+        .btn-secondary:hover {
+            color: var(--text-primary);
+            border-color: var(--text-secondary);
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .main-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .pipeline-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1rem 1.5rem;
+            position: relative;
+            overflow-x: auto;
+        }
+
+        .step-node {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 0.35rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .step-icon {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background-color: var(--bg-card);
+            border: 2px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            transition: all 0.3s;
+        }
+
+        .step-node.active .step-icon {
+            border-color: var(--accent-light);
+            background-color: var(--accent-primary);
+            color: white;
+            box-shadow: 0 0 12px var(--accent-glow);
+        }
+
+        .step-node.completed .step-icon {
+            border-color: var(--success);
+            background-color: var(--success-bg);
+            color: var(--success);
+        }
+
+        .step-node.failed .step-icon {
+            border-color: var(--danger);
+            background-color: var(--danger-bg);
+            color: var(--danger);
+        }
+
+        .step-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+
+        .tabs {
+            display: flex;
+            gap: 0.5rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0.75rem;
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            padding: 0.5rem 1rem;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: 6px;
+            transition: all 0.2s;
+        }
+
+        .tab-btn:hover {
+            color: var(--text-primary);
+            background-color: var(--bg-card);
+        }
+
+        .tab-btn.active {
+            color: white;
+            background-color: var(--accent-primary);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .rubric-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .rubric-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 1.25rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            transition: transform 0.2s;
+        }
+
+        .rubric-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .rubric-title {
+            font-weight: 700;
+            font-size: 0.95rem;
+            color: var(--text-primary);
+        }
+
+        .badge {
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 0.25rem 0.65rem;
+            border-radius: 6px;
+            text-transform: uppercase;
+        }
+
+        .badge-pass {
+            background-color: var(--success-bg);
+            color: var(--success);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+
+        .badge-fail {
+            background-color: var(--danger-bg);
+            color: var(--danger);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+        }
+
+        .badge-warn {
+            background-color: var(--warning-bg);
+            color: var(--warning);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+        }
+
+        .rubric-critique {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .citation-box {
+            background-color: rgba(0, 0, 0, 0.3);
+            border-left: 3px solid var(--accent-light);
+            padding: 0.5rem 0.75rem;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            font-family: 'JetBrains Mono', monospace;
+            border-radius: 4px;
+        }
+
+        .remedy-box {
+            background-color: var(--warning-bg);
+            border-left: 3px solid var(--warning);
+            padding: 0.5rem 0.75rem;
+            font-size: 0.8rem;
+            color: #fde68a;
+            border-radius: 4px;
+        }
+
+        .lesson-viewer {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 2rem;
+            max-height: 700px;
+            overflow-y: auto;
+            color: #e2e8f0;
+            font-size: 0.95rem;
+            line-height: 1.8;
+        }
+
+        .lesson-viewer h1 { font-size: 1.75rem; color: #fff; margin-bottom: 1rem; }
+        .lesson-viewer h2 { font-size: 1.35rem; color: var(--accent-light); margin: 1.5rem 0 0.75rem 0; }
+        .lesson-viewer h3 { font-size: 1.1rem; color: #cbd5e1; margin: 1rem 0 0.5rem 0; }
+        .lesson-viewer hr { border: 0; height: 1px; background: var(--border-color); margin: 1.5rem 0; }
+        .lesson-viewer pre {
+            background: #090d16;
+            padding: 1rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            border: 1px solid var(--border-color);
+            font-family: 'JetBrains Mono', monospace;
+            margin: 1rem 0;
+        }
+
+        .log-box {
+            background-color: #080c14;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.825rem;
+            color: #94a3b8;
+            max-height: 500px;
+            overflow-y: auto;
+        }
+
+        .rejection-item {
+            background-color: var(--bg-card);
+            border-left: 4px solid var(--danger);
+            border-radius: 8px;
+            padding: 1.25rem;
+            margin-bottom: 1rem;
+        }
+
+        .spinner {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div>
+            <span class="brand-badge">NxtWave GenAI Content Systems Assessment</span>
+            <h1 class="title">Autonomous Self-Evaluating Lesson Content Generator</h1>
+            <p class="subtitle">Audience: 12th-grade Indian graduate (non-English medium, zero AI knowledge) | Target: Introduction to RAG</p>
+        </div>
+        <div>
+            <span id="system-status" class="badge badge-pass">System Ready</span>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Sidebar Controls -->
+        <div class="sidebar">
+            <div class="card">
+                <h2 class="card-title">⚙️ Generation & Evaluation Engine</h2>
+
+                <div class="form-group">
+                    <label for="topic">Lesson Topic</label>
+                    <input type="text" id="topic" value="RAG (Retrieval-Augmented Generation)" placeholder="Enter topic...">
+                </div>
+
+                <div class="form-group">
+                    <label for="flaw-injection">⚠️ Deliberate Flaw Injection (Loom Demo)</label>
+                    <select id="flaw-injection">
+                        <option value="none">Standard Mode (High Quality Generation)</option>
+                        <option value="jargon_bomb" selected>Deliberate Flaw: Unexplained Graduate Jargon</option>
+                        <option value="hallucinated_facts">Deliberate Flaw: Hallucinated Weight Retraining</option>
+                        <option value="missing_analogy">Deliberate Flaw: Missing Relatable Analogy</option>
+                    </select>
+                    <small style="display:block; margin-top: 0.3rem; color: var(--text-muted); font-size: 0.75rem;">
+                        Simulates a low-quality or flawed draft on Round 1 to show the evaluator catching the error and recovering on retry!
+                    </small>
+                </div>
+
+                <div class="form-group">
+                    <label for="max-retries">Max Regeneration Retries</label>
+                    <input type="number" id="max-retries" value="2" min="1" max="3">
+                </div>
+
+                <div class="form-group">
+                    <label for="provider">LLM Provider</label>
+                    <select id="provider">
+                        <option value="auto">Auto-Detect (Gemini / OpenAI / Mock)</option>
+                        <option value="mock">Deterministic High-Fidelity Mock (Zero Key)</option>
+                        <option value="gemini">Google Gemini API</option>
+                        <option value="openai">OpenAI / Groq API</option>
+                    </select>
+                </div>
+
+                <button id="run-btn" class="btn btn-primary" onclick="triggerWorkflow()">
+                    <span>▶ Run Agentic Pipeline</span>
+                </button>
+
+                <button class="btn btn-secondary" onclick="resetMemory()">
+                    <span>🔄 Reset Institutional Memory</span>
+                </button>
+            </div>
+
+            <!-- Memory Summary Card -->
+            <div class="card">
+                <h2 class="card-title">🧠 Institutional Memory Stats</h2>
+                <div id="memory-stats-box" style="font-size: 0.85rem; color: var(--text-secondary);">
+                    Loading memory analytics...
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Panel -->
+        <div class="main-panel">
+            <!-- Pipeline Flow Bar -->
+            <div class="pipeline-bar">
+                <div class="step-node" id="node-memory">
+                    <div class="step-icon">1</div>
+                    <span class="step-label">Memory Load</span>
+                </div>
+                <div style="flex: 1; height: 2px; background: var(--border-color); margin: 0 0.5rem;"></div>
+                <div class="step-node" id="node-planning">
+                    <div class="step-icon">2</div>
+                    <span class="step-label">Curriculum Plan</span>
+                </div>
+                <div style="flex: 1; height: 2px; background: var(--border-color); margin: 0 0.5rem;"></div>
+                <div class="step-node" id="node-generating">
+                    <div class="step-icon">3</div>
+                    <span class="step-label">Draft Generation</span>
+                </div>
+                <div style="flex: 1; height: 2px; background: var(--border-color); margin: 0 0.5rem;"></div>
+                <div class="step-node" id="node-evaluating">
+                    <div class="step-icon">4</div>
+                    <span class="step-label">Quality Audit</span>
+                </div>
+                <div style="flex: 1; height: 2px; background: var(--border-color); margin: 0 0.5rem;"></div>
+                <div class="step-node" id="node-evolving">
+                    <div class="step-icon">5</div>
+                    <span class="step-label">Memory Evolution</span>
+                </div>
+                <div style="flex: 1; height: 2px; background: var(--border-color); margin: 0 0.5rem;"></div>
+                <div class="step-node" id="node-shipping">
+                    <div class="step-icon">6</div>
+                    <span class="step-label">Ship Lesson</span>
+                </div>
+            </div>
+
+            <!-- Tabs -->
+            <div class="tabs">
+                <button class="tab-btn active" onclick="switchTab('tab-rubric')">📋 Rubric Audit Scorecard</button>
+                <button class="tab-btn" onclick="switchTab('tab-rejections')">📜 Rejection Log & Diffs (<span id="rejection-count-badge">0</span>)</button>
+                <button class="tab-btn" onclick="switchTab('tab-lesson')">📖 Final Shipped Lesson</button>
+                <button class="tab-btn" onclick="switchTab('tab-memory')">🧬 Evolved Guardrail Rules</button>
+                <button class="tab-btn" onclick="switchTab('tab-logs')">⚡ Execution Trace</button>
+            </div>
+
+            <!-- Tab 1: Rubric Scorecard -->
+            <div id="tab-rubric" class="tab-content active">
+                <div id="rubric-summary-banner" style="margin-bottom: 1rem;">
+                    <div style="padding: 1rem; background: var(--bg-card); border-radius: 8px; color: var(--text-secondary); font-size: 0.9rem;">
+                        Click <strong>Run Agentic Pipeline</strong> to execute the full Generate &rarr; Evaluate (Hard Pass/Fail) &rarr; Regenerate loop.
+                    </div>
+                </div>
+                <div id="rubric-grid" class="rubric-grid"></div>
+            </div>
+
+            <!-- Tab 2: Rejection Log -->
+            <div id="tab-rejections" class="tab-content">
+                <div id="rejection-list">
+                    <div style="padding: 1.5rem; background: var(--bg-card); border-radius: 8px; color: var(--text-secondary); text-align: center;">
+                        No rejections recorded yet in this session.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab 3: Shipped Lesson -->
+            <div id="tab-lesson" class="tab-content">
+                <div style="display: flex; justify-content: flex-end; margin-bottom: 0.75rem;">
+                    <button class="btn btn-secondary" style="width: auto; padding: 0.4rem 1rem;" onclick="copyLessonMarkdown()">📋 Copy Markdown for Google Doc / Notion</button>
+                </div>
+                <div id="lesson-viewer" class="lesson-viewer">
+                    <div style="color: var(--text-muted); text-align: center; padding: 3rem;">
+                        The finalized, rubric-approved lesson content will render here once generation completes.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab 4: Institutional Memory -->
+            <div id="tab-memory" class="tab-content">
+                <div id="memory-rules-container">
+                    <div style="padding: 1rem; color: var(--text-secondary);">Loading institutional memory rules...</div>
+                </div>
+            </div>
+
+            <!-- Tab 5: Logs -->
+            <div id="tab-logs" class="tab-content">
+                <pre id="execution-logs" class="log-box">// Execution traces will stream here...</pre>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let latestRunData = null;
+
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        async function fetchMemory() {
+            try {
+                const res = await fetch('/api/memory');
+                const data = await res.json();
+                document.getElementById('memory-stats-box').innerHTML = `
+                    <div style="display:flex; flex-direction:column; gap:0.4rem;">
+                        <div>• <strong>Total Runs:</strong> ${data.total_runs}</div>
+                        <div>• <strong>Rejections Corrected:</strong> ${data.total_rejections_caught_and_corrected}</div>
+                        <div>• <strong>Active Guardrails:</strong> ${data.active_guardrail_rules}</div>
+                    </div>
+                `;
+
+                const rulesContainer = document.getElementById('memory-rules-container');
+                rulesContainer.innerHTML = data.top_rules.map(r => `
+                    <div style="background:var(--bg-card); border:1px solid var(--border-color); border-radius:8px; padding:1rem; margin-bottom:0.75rem;">
+                        <div style="display:flex; justify-content:space-between; margin-bottom:0.25rem;">
+                            <span style="font-weight:700; color:var(--accent-light); font-size:0.85rem;">[${r.category}] ${r.rule_id}</span>
+                            <span class="badge badge-pass" style="font-size:0.7rem;">Triggered ${r.occurrence_count} times</span>
+                        </div>
+                        <div style="font-size:0.9rem; color:var(--text-primary); margin-bottom:0.4rem;">${r.directive}</div>
+                        <div style="font-size:0.75rem; color:var(--text-muted); font-style:italic;">Source Failure: "${r.source_failure}"</div>
+                    </div>
+                `).join('');
+            } catch (e) {
+                console.error(e);
+            }
+        }
+
+        async function resetMemory() {
+            if (!confirm("Reset institutional memory to initial seed guardrails?")) return;
+            await fetch('/api/reset-memory', { method: 'POST' });
+            fetchMemory();
+            alert("Institutional memory has been reset!");
+        }
+
+        async function triggerWorkflow() {
+            const btn = document.getElementById('run-btn');
+            const topic = document.getElementById('topic').value;
+            const flaw_injection = document.getElementById('flaw-injection').value;
+            const max_retries = parseInt(document.getElementById('max-retries').value) || 2;
+            const provider = document.getElementById('provider').value;
+
+            btn.disabled = true;
+            btn.innerHTML = `<span class="spinner"></span> <span>Running Workflow Loop...</span>`;
+            document.getElementById('system-status').className = 'badge badge-warn';
+            document.getElementById('system-status').innerText = 'Loop Active';
+
+            // Reset pipeline nodes UI
+            ['node-memory', 'node-planning', 'node-generating', 'node-evaluating', 'node-evolving', 'node-shipping'].forEach(id => {
+                document.getElementById(id).className = 'step-node active';
+            });
+
+            try {
+                const res = await fetch('/api/run', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ topic, flaw_injection, max_retries, provider })
+                });
+
+                const data = await res.json();
+                latestRunData = data;
+                renderResults(data);
+                fetchMemory();
+            } catch (err) {
+                alert("Workflow error: " + err);
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = `<span>▶ Run Agentic Pipeline</span>`;
+                document.getElementById('system-status').className = 'badge badge-pass';
+                document.getElementById('system-status').innerText = 'Completed';
+            }
+        }
+
+        function renderResults(data) {
+            // Update logs
+            document.getElementById('execution-logs').textContent = JSON.stringify(data.execution_logs, null, 2);
+
+            // Rejection badge count
+            const rejections = data.rejection_history || [];
+            document.getElementById('rejection-count-badge').innerText = rejections.length;
+
+            // Summary banner
+            const passed = data.status === "PASSED";
+            const banner = document.getElementById('rubric-summary-banner');
+            banner.innerHTML = `
+                <div style="padding:1.25rem; border-radius:8px; border:1px solid ${passed ? 'var(--success)' : 'var(--danger)'}; background:${passed ? 'var(--success-bg)' : 'var(--danger-bg)'};">
+                    <h3 style="color:${passed ? 'var(--success)' : 'var(--danger)'}; margin-bottom:0.25rem;">
+                        ${passed ? '✔ LESSON APPROVED TO SHIP (Passed All 6 Rubric Dimensions)' : '✖ MAX RETRIES REACHED WITH UNRESOLVED FLAWS'}
+                    </h3>
+                    <p style="font-size:0.9rem; color:var(--text-primary);">${data.evaluation_result ? data.evaluation_result.summary : ''}</p>
+                    <p style="font-size:0.8rem; color:var(--text-muted); margin-top:0.4rem;">
+                        Execution Cycle: ${data.iteration + 1} generation attempt(s) | ${rejections.length} autonomous retry correction(s) applied.
+                    </p>
+                </div>
+            `;
+
+            // Render Rubric Grid
+            const grid = document.getElementById('rubric-grid');
+            if (data.evaluation_result && data.evaluation_result.checkpoints) {
+                grid.innerHTML = data.evaluation_result.checkpoints.map(cp => `
+                    <div class="rubric-card">
+                        <div class="rubric-header">
+                            <span class="rubric-title">${cp.dimension_name}</span>
+                            <span class="badge ${cp.passed ? 'badge-pass' : 'badge-fail'}">${cp.passed ? 'PASS' : 'FAIL'}</span>
+                        </div>
+                        <div class="rubric-critique">${cp.critique}</div>
+                        ${cp.snippet_citation ? `<div class="citation-box">Citation: "${cp.snippet_citation}"</div>` : ''}
+                        ${!cp.passed && cp.actionable_remedy ? `<div class="remedy-box">Actionable Remedy: ${cp.actionable_remedy}</div>` : ''}
+                    </div>
+                `).join('');
+            }
+
+            // Render Rejections
+            const rejContainer = document.getElementById('rejection-list');
+            if (rejections.length === 0) {
+                rejContainer.innerHTML = `
+                    <div style="padding: 1.5rem; background: var(--bg-card); border-radius: 8px; color: var(--success); text-align: center;">
+                        ✔ Zero rejections occurred. Draft cleared the quality bar on first pass!
+                    </div>
+                `;
+            } else {
+                rejContainer.innerHTML = rejections.map(r => `
+                    <div class="rejection-item">
+                        <div style="display:flex; justify-content:space-between; margin-bottom:0.5rem;">
+                            <strong style="color:var(--danger); font-size:1rem;">Round ${r.iteration + 1} Rejection Audit</strong>
+                            <span style="font-size:0.75rem; color:var(--text-muted);">${r.timestamp}</span>
+                        </div>
+                        <div style="margin-bottom:0.5rem;">
+                            <strong style="font-size:0.85rem; color:var(--text-secondary);">Failed Checkpoints:</strong>
+                            <div style="display:flex; gap:0.4rem; flex-wrap:wrap; margin-top:0.25rem;">
+                                ${r.failed_checkpoints.map(fc => `<span class="badge badge-fail">${fc}</span>`).join('')}
+                            </div>
+                        </div>
+                        <div style="margin-bottom:0.5rem; font-size:0.85rem;">
+                            <strong style="color:var(--text-secondary);">Auditor Root Cause:</strong>
+                            <div style="background:rgba(0,0,0,0.3); padding:0.5rem; border-radius:4px; margin-top:0.2rem; font-family:'JetBrains Mono', monospace; font-size:0.8rem;">${r.root_cause_analysis}</div>
+                        </div>
+                        <div style="font-size:0.85rem;">
+                            <strong style="color:var(--warning);">Targeted Prompt Feedback Injected for Retry:</strong>
+                            <div style="background:rgba(245,158,11,0.1); border-left:3px solid var(--warning); padding:0.5rem; border-radius:4px; margin-top:0.2rem;">${r.feedback_injected_to_prompt}</div>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            // Render Lesson Viewer
+            const lessonViewer = document.getElementById('lesson-viewer');
+            if (data.current_draft) {
+                // Render formatted markdown
+                lessonViewer.innerHTML = formatMarkdownToHTML(data.current_draft.full_markdown);
+            }
+        }
+
+        function formatMarkdownToHTML(md) {
+            // Simple markdown formatter
+            let html = md
+                .replace(/^# (.*$)/gim, '<h1>$1</h1>')
+                .replace(/^## (.*$)/gim, '<h2>$1</h2>')
+                .replace(/^### (.*$)/gim, '<h3>$1</h3>')
+                .replace(/^---$/gim, '<hr>')
+                .replace(/\*\*(.*)\*\*/gim, '<strong>$1</strong>')
+                .replace(/\*(.*)\*/gim, '<em>$1</em>')
+                .replace(/```([^`]+)```/gim, '<pre><code>$1</code></pre>')
+                .replace(/\n\n/gim, '<p></p>')
+                .replace(/\n/gim, '<br>');
+            return html;
+        }
+
+        function copyLessonMarkdown() {
+            if (!latestRunData || !latestRunData.current_draft) {
+                alert("Run the workflow first to generate a lesson!");
+                return;
+            }
+            navigator.clipboard.writeText(latestRunData.current_draft.full_markdown);
+            alert("Copied full lesson markdown to clipboard! Ready to paste into Google Docs or Notion.");
+        }
+
+        // Initialize memory on load
+        fetchMemory();
+    </script>
+</body>
+</html>
