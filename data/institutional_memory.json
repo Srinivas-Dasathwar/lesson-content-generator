@@ -6,7 +6,7 @@
       "directive": "Keep English vocabulary accessible for 12th-grade Indian graduates from non-English medium backgrounds. Prefer 'simple, everyday words' over academic jargon.",
       "source_failure": "Initial pilots used words like 'parametric', 'dichotomy', and 'stochastic' which disengaged beginners.",
       "occurrence_count": 3,
-      "created_at": "2026-11-06T18:08:26.070961"
+      "created_at": "2026-11-06T22:13:28.295532"
     },
     {
       "rule_id": "RULE-ANALOGY-001",
@@ -14,7 +14,7 @@
       "directive": "Anchor RAG in the 'Open-Book Exam vs Closed-Book Exam' analogy. It instantly clicks with Indian students who understand exam pressure.",
       "source_failure": "Abstract software architecture diagrams failed comprehension tests without a physical analogy.",
       "occurrence_count": 5,
-      "created_at": "2026-11-06T18:08:26.070988"
+      "created_at": "2026-11-06T22:13:28.295568"
     },
     {
       "rule_id": "RULE-GROUNDING-001",
@@ -22,7 +22,7 @@
       "directive": "Explicitly state that RAG DOES NOT retrain the AI model or change its internal weights; it simply feeds reference notes into the prompt.",
       "source_failure": "Frequent beginner confusion assuming RAG is fine-tuning or training new models.",
       "occurrence_count": 4,
-      "created_at": "2026-11-06T18:08:26.070998"
+      "created_at": "2026-11-06T22:13:28.295572"
     },
     {
       "rule_id": "RULE-JARGON-001",
@@ -30,7 +30,7 @@
       "directive": "Never use terms like 'Embeddings' or 'Vector DB' without first demystifying them as 'Search Numbers' or 'Library Catalog Cards'.",
       "source_failure": "Unexplained AI buzzwords caused high drop-off in reader comprehension checks.",
       "occurrence_count": 6,
-      "created_at": "2026-11-06T18:08:26.071011"
+      "created_at": "2026-11-06T22:13:28.295576"
     },
     {
       "rule_id": "RULE-AUTO-005",
@@ -38,7 +38,7 @@
       "directive": "Guardrail against failure in 'AUDIENCE_VOCABULARY_AND_TONE': - [AUDIENCE_VOCABULARY_AND_TONE] Replace all research jargon with simple, everyday 12th-grade English. Use short sentences (under 20 words).\n- [RELATABLE_ANALOGY] Use an everyday Indian life analogy, such as an Open-Book Examination vs Closed-Book Exam or a school library.\n- [NO_UNEXPLAINED_JARGON] Do not mention HNSW or tensor dimensions. Focus strictly on Retrieval (Search), Augment (Attach), Generate (Answer).\n- [COHERENT_TEACHING_FLOW] Replace quiz with an intuitive scenario-based question (e.g. college WhatsApp admission bot or exam notes). CRITICAL: Must avoid '- [AUDIENCE_VOCABULARY_AND_TONE] Violates the audience constraint. Uses dense ma'. CRITICAL: Must avoid '- [AUDIENCE_VOCABULARY_AND_TONE] Violates the audience constraint. Uses dense ma'. CRITICAL: Must avoid '- [AUDIENCE_VOCABULARY_AND_TONE] Violates the audience constraint. Uses dense ma'.",
       "source_failure": "- [AUDIENCE_VOCABULARY_AND_TONE] Violates the audience constraint. Uses dense mathematical and research vocabulary like 'manifold degradatio",
       "occurrence_count": 4,
-      "created_at": "2026-11-06T21:16:45.020913"
+      "created_at": "2026-11-06T22:13:29.704493"
     },
     {
       "rule_id": "RULE-AUTO-006",
@@ -46,7 +46,7 @@
       "directive": "Guardrail against failure in 'RELATABLE_ANALOGY': - [AUDIENCE_VOCABULARY_AND_TONE] Replace all research jargon with simple, everyday 12th-grade English. Use short sentences (under 20 words).\n- [RELATABLE_ANALOGY] Use an everyday Indian life analogy, such as an Open-Book Examination vs Closed-Book Exam or a school library.\n- [NO_UNEXPLAINED_JARGON] Do not mention HNSW or tensor dimensions. Focus strictly on Retrieval (Search), Augment (Attach), Generate (Answer).\n- [COHERENT_TEACHING_FLOW] Replace quiz with an intuitive scenario-based question (e.g. college WhatsApp admission bot or exam notes).",
       "source_failure": "- [AUDIENCE_VOCABULARY_AND_TONE] Violates the audience constraint. Uses dense mathematical and research vocabulary like 'manifold degradatio",
       "occurrence_count": 1,
-      "created_at": "2026-11-06T21:16:45.020923"
+      "created_at": "2026-11-06T22:13:29.704521"
     },
     {
       "rule_id": "RULE-AUTO-007",
@@ -54,7 +54,7 @@
       "directive": "Guardrail against failure in 'NO_UNEXPLAINED_JARGON': - [AUDIENCE_VOCABULARY_AND_TONE] Replace all research jargon with simple, everyday 12th-grade English. Use short sentences (under 20 words).\n- [RELATABLE_ANALOGY] Use an everyday Indian life analogy, such as an Open-Book Examination vs Closed-Book Exam or a school library.\n- [NO_UNEXPLAINED_JARGON] Do not mention HNSW or tensor dimensions. Focus strictly on Retrieval (Search), Augment (Attach), Generate (Answer).\n- [COHERENT_TEACHING_FLOW] Replace quiz with an intuitive scenario-based question (e.g. college WhatsApp admission bot or exam notes).",
       "source_failure": "- [AUDIENCE_VOCABULARY_AND_TONE] Violates the audience constraint. Uses dense mathematical and research vocabulary like 'manifold degradatio",
       "occurrence_count": 1,
-      "created_at": "2026-11-06T21:16:45.020932"
+      "created_at": "2026-11-06T22:13:29.704541"
     },
     {
       "rule_id": "RULE-AUTO-008",
@@ -62,7 +62,7 @@
       "directive": "Guardrail against failure in 'COHERENT_TEACHING_FLOW': - [AUDIENCE_VOCABULARY_AND_TONE] Replace all research jargon with simple, everyday 12th-grade English. Use short sentences (under 20 words).\n- [RELATABLE_ANALOGY] Use an everyday Indian life analogy, such as an Open-Book Examination vs Closed-Book Exam or a school library.\n- [NO_UNEXPLAINED_JARGON] Do not mention HNSW or tensor dimensions. Focus strictly on Retrieval (Search), Augment (Attach), Generate (Answer).\n- [COHERENT_TEACHING_FLOW] Replace quiz with an intuitive scenario-based question (e.g. college WhatsApp admission bot or exam notes).",
       "source_failure": "- [AUDIENCE_VOCABULARY_AND_TONE] Violates the audience constraint. Uses dense mathematical and research vocabulary like 'manifold degradatio",
       "occurrence_count": 1,
-      "created_at": "2026-11-06T21:16:45.020938"
+      "created_at": "2026-11-06T22:13:29.704558"
     },
     {
       "rule_id": "RULE-AUTO-009",
@@ -70,7 +70,7 @@
       "directive": "Guardrail against failure in 'RELATABLE_ANALOGY': - [AUDIENCE_VOCABULARY_AND_TONE] Replace all research jargon with simple, everyday 12th-grade English. Use short sentences (under 20 words).\n- [RELATABLE_ANALOGY] Use an everyday Indian life analogy, such as an Open-Book Examination vs Closed-Book Exam or a school library.\n- [NO_UNEXPLAINED_JARGON] Do not mention HNSW or tensor dimensions. Focus strictly on Retrieval (Search), Augment (Attach), Generate (Answer).\n- [COHERENT_TEACHING_FLOW] Replace quiz with an intuitive scenario-based question (e.g. college WhatsApp admission bot or exam notes).",
       "source_failure": "- [AUDIENCE_VOCABULARY_AND_TONE] Violates the audience constraint. Uses dense mathematical and research vocabulary like 'manifold degradatio",
       "occurrence_count": 1,
-      "created_at": "2026-11-06T21:22:31.577266"
+      "created_at": "2026-11-06T22:25:55.687291"
     },
     {
       "rule_id": "RULE-AUTO-010",
@@ -78,7 +78,7 @@
       "directive": "Guardrail against failure in 'NO_UNEXPLAINED_JARGON': - [AUDIENCE_VOCABULARY_AND_TONE] Replace all research jargon with simple, everyday 12th-grade English. Use short sentences (under 20 words).\n- [RELATABLE_ANALOGY] Use an everyday Indian life analogy, such as an Open-Book Examination vs Closed-Book Exam or a school library.\n- [NO_UNEXPLAINED_JARGON] Do not mention HNSW or tensor dimensions. Focus strictly on Retrieval (Search), Augment (Attach), Generate (Answer).\n- [COHERENT_TEACHING_FLOW] Replace quiz with an intuitive scenario-based question (e.g. college WhatsApp admission bot or exam notes).",
       "source_failure": "- [AUDIENCE_VOCABULARY_AND_TONE] Violates the audience constraint. Uses dense mathematical and research vocabulary like 'manifold degradatio",
       "occurrence_count": 1,
-      "created_at": "2026-11-06T21:22:31.577277"
+      "created_at": "2026-11-06T22:25:55.687300"
     },
     {
       "rule_id": "RULE-AUTO-011",
@@ -86,96 +86,56 @@
       "directive": "Guardrail against failure in 'COHERENT_TEACHING_FLOW': - [AUDIENCE_VOCABULARY_AND_TONE] Replace all research jargon with simple, everyday 12th-grade English. Use short sentences (under 20 words).\n- [RELATABLE_ANALOGY] Use an everyday Indian life analogy, such as an Open-Book Examination vs Closed-Book Exam or a school library.\n- [NO_UNEXPLAINED_JARGON] Do not mention HNSW or tensor dimensions. Focus strictly on Retrieval (Search), Augment (Attach), Generate (Answer).\n- [COHERENT_TEACHING_FLOW] Replace quiz with an intuitive scenario-based question (e.g. college WhatsApp admission bot or exam notes).",
       "source_failure": "- [AUDIENCE_VOCABULARY_AND_TONE] Violates the audience constraint. Uses dense mathematical and research vocabulary like 'manifold degradatio",
       "occurrence_count": 1,
-      "created_at": "2026-11-06T21:22:31.577286"
+      "created_at": "2026-11-06T22:25:55.687309"
     },
     {
       "rule_id": "RULE-AUTO-012",
       "category": "GROUNDING",
-      "directive": "Guardrail against failure in 'ACCURACY_AND_GROUNDING': - [ACCURACY_AND_GROUNDING] Correct the factual error: Clarify that RAG never touches the AI's internal model weights. It only looks up reference text and feeds it as a prompt.\n- [RELATABLE_ANALOGY] Use an Open-Book exam analogy: you don't grow a new brain, you simply look at your notebook.\n- [NO_UNEXPLAINED_JARGON] Remove backpropagation and gradient descent; explain that the AI model remains frozen.\n- [CORE_PILLARS_COVERAGE] Explain the 3 real pillars: Retrieve (search), Augment (attach), Generate (synthesize).\n- [COHERENT_TEACHING_FLOW] Update quiz to test understanding of the search-and-attach mechanism.",
-      "source_failure": "- [ACCURACY_AND_GROUNDING] Fatal technical error: RAG explicitly does NOT retrain or fine-tune neural model weights at query time. It inject",
+      "directive": "Guardrail against failure in 'RELATABLE_ANALOGY': - [AUDIENCE_VOCABULARY_AND_TONE] Replace all research jargon with simple, everyday 12th-grade English. Use short sentences (under 20 words).\n- [RELATABLE_ANALOGY] Use an everyday Indian life analogy, such as an Open-Book Examination vs Closed-Book Exam or a school library.\n- [NO_UNEXPLAINED_JARGON] Do not mention HNSW or tensor dimensions. Focus strictly on Retrieval (Search), Augment (Attach), Generate (Answer).\n- [COHERENT_TEACHING_FLOW] Replace quiz with an intuitive scenario-based question (e.g. college WhatsApp admission bot or exam notes).",
+      "source_failure": "- [AUDIENCE_VOCABULARY_AND_TONE] Violates the audience constraint. Uses dense mathematical and research vocabulary like 'manifold degradatio",
       "occurrence_count": 1,
-      "created_at": "2026-11-06T21:23:17.836488"
+      "created_at": "2026-11-07T21:28:20.379342"
     },
     {
       "rule_id": "RULE-AUTO-013",
-      "category": "GROUNDING",
-      "directive": "Guardrail against failure in 'RELATABLE_ANALOGY': - [ACCURACY_AND_GROUNDING] Correct the factual error: Clarify that RAG never touches the AI's internal model weights. It only looks up reference text and feeds it as a prompt.\n- [RELATABLE_ANALOGY] Use an Open-Book exam analogy: you don't grow a new brain, you simply look at your notebook.\n- [NO_UNEXPLAINED_JARGON] Remove backpropagation and gradient descent; explain that the AI model remains frozen.\n- [CORE_PILLARS_COVERAGE] Explain the 3 real pillars: Retrieve (search), Augment (attach), Generate (synthesize).\n- [COHERENT_TEACHING_FLOW] Update quiz to test understanding of the search-and-attach mechanism.",
-      "source_failure": "- [ACCURACY_AND_GROUNDING] Fatal technical error: RAG explicitly does NOT retrain or fine-tune neural model weights at query time. It inject",
+      "category": "JARGON",
+      "directive": "Guardrail against failure in 'NO_UNEXPLAINED_JARGON': - [AUDIENCE_VOCABULARY_AND_TONE] Replace all research jargon with simple, everyday 12th-grade English. Use short sentences (under 20 words).\n- [RELATABLE_ANALOGY] Use an everyday Indian life analogy, such as an Open-Book Examination vs Closed-Book Exam or a school library.\n- [NO_UNEXPLAINED_JARGON] Do not mention HNSW or tensor dimensions. Focus strictly on Retrieval (Search), Augment (Attach), Generate (Answer).\n- [COHERENT_TEACHING_FLOW] Replace quiz with an intuitive scenario-based question (e.g. college WhatsApp admission bot or exam notes).",
+      "source_failure": "- [AUDIENCE_VOCABULARY_AND_TONE] Violates the audience constraint. Uses dense mathematical and research vocabulary like 'manifold degradatio",
       "occurrence_count": 1,
-      "created_at": "2026-11-06T21:23:17.836500"
+      "created_at": "2026-11-07T21:28:20.379368"
     },
     {
       "rule_id": "RULE-AUTO-014",
-      "category": "JARGON",
-      "directive": "Guardrail against failure in 'NO_UNEXPLAINED_JARGON': - [ACCURACY_AND_GROUNDING] Correct the factual error: Clarify that RAG never touches the AI's internal model weights. It only looks up reference text and feeds it as a prompt.\n- [RELATABLE_ANALOGY] Use an Open-Book exam analogy: you don't grow a new brain, you simply look at your notebook.\n- [NO_UNEXPLAINED_JARGON] Remove backpropagation and gradient descent; explain that the AI model remains frozen.\n- [CORE_PILLARS_COVERAGE] Explain the 3 real pillars: Retrieve (search), Augment (attach), Generate (synthesize).\n- [COHERENT_TEACHING_FLOW] Update quiz to test understanding of the search-and-attach mechanism.",
-      "source_failure": "- [ACCURACY_AND_GROUNDING] Fatal technical error: RAG explicitly does NOT retrain or fine-tune neural model weights at query time. It inject",
+      "category": "GROUNDING",
+      "directive": "Guardrail against failure in 'COHERENT_TEACHING_FLOW': - [AUDIENCE_VOCABULARY_AND_TONE] Replace all research jargon with simple, everyday 12th-grade English. Use short sentences (under 20 words).\n- [RELATABLE_ANALOGY] Use an everyday Indian life analogy, such as an Open-Book Examination vs Closed-Book Exam or a school library.\n- [NO_UNEXPLAINED_JARGON] Do not mention HNSW or tensor dimensions. Focus strictly on Retrieval (Search), Augment (Attach), Generate (Answer).\n- [COHERENT_TEACHING_FLOW] Replace quiz with an intuitive scenario-based question (e.g. college WhatsApp admission bot or exam notes).",
+      "source_failure": "- [AUDIENCE_VOCABULARY_AND_TONE] Violates the audience constraint. Uses dense mathematical and research vocabulary like 'manifold degradatio",
       "occurrence_count": 1,
-      "created_at": "2026-11-06T21:23:17.836508"
+      "created_at": "2026-11-07T21:28:20.379379"
     },
     {
       "rule_id": "RULE-AUTO-015",
       "category": "GROUNDING",
-      "directive": "Guardrail against failure in 'CORE_PILLARS_COVERAGE': - [ACCURACY_AND_GROUNDING] Correct the factual error: Clarify that RAG never touches the AI's internal model weights. It only looks up reference text and feeds it as a prompt.\n- [RELATABLE_ANALOGY] Use an Open-Book exam analogy: you don't grow a new brain, you simply look at your notebook.\n- [NO_UNEXPLAINED_JARGON] Remove backpropagation and gradient descent; explain that the AI model remains frozen.\n- [CORE_PILLARS_COVERAGE] Explain the 3 real pillars: Retrieve (search), Augment (attach), Generate (synthesize).\n- [COHERENT_TEACHING_FLOW] Update quiz to test understanding of the search-and-attach mechanism.",
-      "source_failure": "- [ACCURACY_AND_GROUNDING] Fatal technical error: RAG explicitly does NOT retrain or fine-tune neural model weights at query time. It inject",
+      "directive": "Guardrail against failure in 'RELATABLE_ANALOGY': - [AUDIENCE_VOCABULARY_AND_TONE] Replace all research jargon with simple, everyday 12th-grade English. Use short sentences (under 20 words).\n- [RELATABLE_ANALOGY] Use an everyday Indian life analogy, such as an Open-Book Examination vs Closed-Book Exam or a school library.\n- [NO_UNEXPLAINED_JARGON] Do not mention HNSW or tensor dimensions. Focus strictly on Retrieval (Search), Augment (Attach), Generate (Answer).\n- [COHERENT_TEACHING_FLOW] Replace quiz with an intuitive scenario-based question (e.g. college WhatsApp admission bot or exam notes).",
+      "source_failure": "- [AUDIENCE_VOCABULARY_AND_TONE] Violates the audience constraint. Uses dense mathematical and research vocabulary like 'manifold degradatio",
       "occurrence_count": 1,
-      "created_at": "2026-11-06T21:23:17.836514"
+      "created_at": "2026-11-07T21:28:25.602720"
     },
     {
       "rule_id": "RULE-AUTO-016",
-      "category": "GROUNDING",
-      "directive": "Guardrail against failure in 'COHERENT_TEACHING_FLOW': - [ACCURACY_AND_GROUNDING] Correct the factual error: Clarify that RAG never touches the AI's internal model weights. It only looks up reference text and feeds it as a prompt.\n- [RELATABLE_ANALOGY] Use an Open-Book exam analogy: you don't grow a new brain, you simply look at your notebook.\n- [NO_UNEXPLAINED_JARGON] Remove backpropagation and gradient descent; explain that the AI model remains frozen.\n- [CORE_PILLARS_COVERAGE] Explain the 3 real pillars: Retrieve (search), Augment (attach), Generate (synthesize).\n- [COHERENT_TEACHING_FLOW] Update quiz to test understanding of the search-and-attach mechanism.",
-      "source_failure": "- [ACCURACY_AND_GROUNDING] Fatal technical error: RAG explicitly does NOT retrain or fine-tune neural model weights at query time. It inject",
+      "category": "JARGON",
+      "directive": "Guardrail against failure in 'NO_UNEXPLAINED_JARGON': - [AUDIENCE_VOCABULARY_AND_TONE] Replace all research jargon with simple, everyday 12th-grade English. Use short sentences (under 20 words).\n- [RELATABLE_ANALOGY] Use an everyday Indian life analogy, such as an Open-Book Examination vs Closed-Book Exam or a school library.\n- [NO_UNEXPLAINED_JARGON] Do not mention HNSW or tensor dimensions. Focus strictly on Retrieval (Search), Augment (Attach), Generate (Answer).\n- [COHERENT_TEACHING_FLOW] Replace quiz with an intuitive scenario-based question (e.g. college WhatsApp admission bot or exam notes).",
+      "source_failure": "- [AUDIENCE_VOCABULARY_AND_TONE] Violates the audience constraint. Uses dense mathematical and research vocabulary like 'manifold degradatio",
       "occurrence_count": 1,
-      "created_at": "2026-11-06T21:23:17.836521"
+      "created_at": "2026-11-07T21:28:25.602749"
     },
     {
       "rule_id": "RULE-AUTO-017",
       "category": "GROUNDING",
-      "directive": "Guardrail against failure in 'RELATABLE_ANALOGY': - [AUDIENCE_VOCABULARY_AND_TONE] Replace all research jargon with simple, everyday 12th-grade English. Use short sentences (under 20 words).\n- [RELATABLE_ANALOGY] Use an everyday Indian life analogy, such as an Open-Book Examination vs Closed-Book Exam or a school library.\n- [NO_UNEXPLAINED_JARGON] Do not mention HNSW or tensor dimensions. Focus strictly on Retrieval (Search), Augment (Attach), Generate (Answer).\n- [COHERENT_TEACHING_FLOW] Replace quiz with an intuitive scenario-based question (e.g. college WhatsApp admission bot or exam notes).",
-      "source_failure": "- [AUDIENCE_VOCABULARY_AND_TONE] Violates the audience constraint. Uses dense mathematical and research vocabulary like 'manifold degradatio",
-      "occurrence_count": 1,
-      "created_at": "2026-11-06T21:26:02.357355"
-    },
-    {
-      "rule_id": "RULE-AUTO-018",
-      "category": "JARGON",
-      "directive": "Guardrail against failure in 'NO_UNEXPLAINED_JARGON': - [AUDIENCE_VOCABULARY_AND_TONE] Replace all research jargon with simple, everyday 12th-grade English. Use short sentences (under 20 words).\n- [RELATABLE_ANALOGY] Use an everyday Indian life analogy, such as an Open-Book Examination vs Closed-Book Exam or a school library.\n- [NO_UNEXPLAINED_JARGON] Do not mention HNSW or tensor dimensions. Focus strictly on Retrieval (Search), Augment (Attach), Generate (Answer).\n- [COHERENT_TEACHING_FLOW] Replace quiz with an intuitive scenario-based question (e.g. college WhatsApp admission bot or exam notes).",
-      "source_failure": "- [AUDIENCE_VOCABULARY_AND_TONE] Violates the audience constraint. Uses dense mathematical and research vocabulary like 'manifold degradatio",
-      "occurrence_count": 1,
-      "created_at": "2026-11-06T21:26:02.357365"
-    },
-    {
-      "rule_id": "RULE-AUTO-019",
-      "category": "GROUNDING",
       "directive": "Guardrail against failure in 'COHERENT_TEACHING_FLOW': - [AUDIENCE_VOCABULARY_AND_TONE] Replace all research jargon with simple, everyday 12th-grade English. Use short sentences (under 20 words).\n- [RELATABLE_ANALOGY] Use an everyday Indian life analogy, such as an Open-Book Examination vs Closed-Book Exam or a school library.\n- [NO_UNEXPLAINED_JARGON] Do not mention HNSW or tensor dimensions. Focus strictly on Retrieval (Search), Augment (Attach), Generate (Answer).\n- [COHERENT_TEACHING_FLOW] Replace quiz with an intuitive scenario-based question (e.g. college WhatsApp admission bot or exam notes).",
       "source_failure": "- [AUDIENCE_VOCABULARY_AND_TONE] Violates the audience constraint. Uses dense mathematical and research vocabulary like 'manifold degradatio",
       "occurrence_count": 1,
-      "created_at": "2026-11-06T21:26:02.357372"
-    },
-    {
-      "rule_id": "RULE-AUTO-020",
-      "category": "GROUNDING",
-      "directive": "Guardrail against failure in 'RELATABLE_ANALOGY': - [AUDIENCE_VOCABULARY_AND_TONE] Replace all research jargon with simple, everyday 12th-grade English. Use short sentences (under 20 words).\n- [RELATABLE_ANALOGY] Use an everyday Indian life analogy, such as an Open-Book Examination vs Closed-Book Exam or a school library.\n- [NO_UNEXPLAINED_JARGON] Do not mention HNSW or tensor dimensions. Focus strictly on Retrieval (Search), Augment (Attach), Generate (Answer).\n- [COHERENT_TEACHING_FLOW] Replace quiz with an intuitive scenario-based question (e.g. college WhatsApp admission bot or exam notes).",
-      "source_failure": "- [AUDIENCE_VOCABULARY_AND_TONE] Violates the audience constraint. Uses dense mathematical and research vocabulary like 'manifold degradatio",
-      "occurrence_count": 1,
-      "created_at": "2026-11-06T21:30:09.188577"
-    },
-    {
-      "rule_id": "RULE-AUTO-021",
-      "category": "JARGON",
-      "directive": "Guardrail against failure in 'NO_UNEXPLAINED_JARGON': - [AUDIENCE_VOCABULARY_AND_TONE] Replace all research jargon with simple, everyday 12th-grade English. Use short sentences (under 20 words).\n- [RELATABLE_ANALOGY] Use an everyday Indian life analogy, such as an Open-Book Examination vs Closed-Book Exam or a school library.\n- [NO_UNEXPLAINED_JARGON] Do not mention HNSW or tensor dimensions. Focus strictly on Retrieval (Search), Augment (Attach), Generate (Answer).\n- [COHERENT_TEACHING_FLOW] Replace quiz with an intuitive scenario-based question (e.g. college WhatsApp admission bot or exam notes).",
-      "source_failure": "- [AUDIENCE_VOCABULARY_AND_TONE] Violates the audience constraint. Uses dense mathematical and research vocabulary like 'manifold degradatio",
-      "occurrence_count": 1,
-      "created_at": "2026-11-06T21:30:09.188589"
-    },
-    {
-      "rule_id": "RULE-AUTO-022",
-      "category": "GROUNDING",
-      "directive": "Guardrail against failure in 'COHERENT_TEACHING_FLOW': - [AUDIENCE_VOCABULARY_AND_TONE] Replace all research jargon with simple, everyday 12th-grade English. Use short sentences (under 20 words).\n- [RELATABLE_ANALOGY] Use an everyday Indian life analogy, such as an Open-Book Examination vs Closed-Book Exam or a school library.\n- [NO_UNEXPLAINED_JARGON] Do not mention HNSW or tensor dimensions. Focus strictly on Retrieval (Search), Augment (Attach), Generate (Answer).\n- [COHERENT_TEACHING_FLOW] Replace quiz with an intuitive scenario-based question (e.g. college WhatsApp admission bot or exam notes).",
-      "source_failure": "- [AUDIENCE_VOCABULARY_AND_TONE] Violates the audience constraint. Uses dense mathematical and research vocabulary like 'manifold degradatio",
-      "occurrence_count": 1,
-      "created_at": "2026-11-06T21:30:09.188597"
+      "created_at": "2026-11-07T21:28:25.602771"
     }
   ],
-  "last_updated": "2026-11-06T21:30:20.118596"
+  "last_updated": "2026-11-07T21:28:25.609427"
 }
