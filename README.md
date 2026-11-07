@@ -209,10 +209,3 @@ lesson-content-agent/
 
 ---
 
-## 📬 Deliverables Summary
-
-1. **GitHub Repository:** This repository containing the complete agentic workflow, test suite, and documentation.
-2. **Final Lesson Document:** [docs/FINAL_LESSON_RAG.md](docs/FINAL_LESSON_RAG.md) (formatted and ready to paste into Google Docs / Notion).
-3. **Loom Video Script:** [docs/LOOM_RECORDING_GUIDE.md](docs/LOOM_RECORDING_GUIDE.md) (minute-by-minute presentation plan covering the live run, deliberate error injection, and architectural walkthrough).
-
-*Designed and implemented with precision for production content systems.*
